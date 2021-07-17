@@ -4,16 +4,16 @@ from flask import Blueprint
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/signin', methods=['POST'])
-def signin():
+def registrarse():
   # TODO: registrarse
   pass
 
 @bp.route('/login', methods=['POST'])
-def login():
+def iniciar_sesion():
   # TODO: iniciar sesión
   pass
 
 @bp.route('/logout', methods=['POST'])
-def logout():
+def cerrar_sesion():
   # TODO: cerrar sesión
   pass

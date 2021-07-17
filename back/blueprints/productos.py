@@ -4,41 +4,41 @@ from flask import Blueprint
 bp = Blueprint('productos', __name__, url_prefix='/productos')
 
 @bp.route('/mas-vendidos', methods=['GET'])
-def mas_vendidos():
+def consultar_productos_mas_vendidos():
   # TODO controlador: consultar productos más vendidos
   pass
 
 @bp.route('/', methods=['GET'])
-def list():
+def consultar_lista_productos():
   # TODO controlador: consultar lista de productos
   pass
 
 @bp.route('/search/<query>', methods=['GET'])
-def search():
+def buscar_producto():
   # TODO controlador: buscar producto
   pass
 
 @bp.route('/<id>', methods=['GET'])
-def retrieve(id):
+def ver_informacion_producto(id):
   # TODO controlador: ver información de producto
   pass
 
 @bp.route('/', methods=['POST'])
-def update(id):
+def agregar_producto(id):
   # TODO controlador: agregar producto
   pass
 
 @bp.route('/<id>', methods=['PUT'])
-def update(id):
+def editar_producto(id):
   # TODO controlador: editar producto
   pass
 
 @bp.route('/<id>', methods=['DELETE'])
-def destroy(id):
+def eliminar_producto(id):
   # TODO controlador: eliminar producto
   pass
 
 @bp.route('/<id>/calificaciones', methods=['POST'])
-def calificar(id):
+def calificar_producto(id):
   # TODO controlador: calificar producto
   pass
