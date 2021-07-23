@@ -3,6 +3,10 @@ CREATE DATABASE  IF NOT EXISTS `ebarrotes`;
 
 USE `ebarrotes`;
 
+-- database user
+
+-- CREATE USER ebarrotes_user IDENTIFIED WITH mysql_native_password BY "C0ntr4ebarrotes$";
+
 --
 -- Host: localhost    Database: customer-service
 -- ------------------------------------------------------
@@ -55,7 +59,7 @@ DROP TABLE IF EXISTS `datos_de_envio`;
 CREATE TABLE datos_de_envio (
 	id_datos_envio INT auto_increment NOT NULL,
 	estado varchar(10) NOT NULL,
-	cp varchar(10 NOT NULL,
+	cp varchar(10) NOT NULL,
 	direccion varchar(30) NOT NULL,
 	entre_calles varchar(30) NOT NULL,
 	CONSTRAINT datos_de_envio_PK PRIMARY KEY (id_datos_envio)
