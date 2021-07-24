@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String
-
+from models.conexion_bd import Base
 
 class Vendedor(Base):
 
