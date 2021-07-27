@@ -1,5 +1,9 @@
 # flask
-from flask import Blueprint
+from flask import Blueprint, jsonify
+
+# models
+from models.conexion_bd import Session
+from models.producto import Producto
 
 bp = Blueprint('productos', __name__, url_prefix='/productos')
 
@@ -10,8 +14,9 @@ def consultar_productos_mas_vendidos():
 
 @bp.route('/', methods=['GET'])
 def consultar_lista_productos():
-  # TODO controlador: consultar lista de productos
-  pass
+  session = Session()
+  productos = session.query(Producto).all()
+  return jsonify([p.to_dict() for p in productos])
 
 @bp.route('/search/<query>', methods=['GET'])
 def buscar_producto():
