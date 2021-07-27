@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS producto;
 CREATE TABLE producto (
 	id_producto INT auto_increment NOT NULL,
 	username varchar(20) NOT NULL,
-	nombre varchar(20) NOT NULL,
+	nombre varchar(100) NOT NULL,
 	descripcion TEXT NOT NULL,
 	precio FLOAT NOT NULL,
 	calificacion INT NOT NULL,
