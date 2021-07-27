@@ -4,7 +4,7 @@ from .conexion_bd import Base
 class Producto(Base):
     __tablename__ = 'producto'
 
-    id_producto = Column(String, primary_key=True)
+    id_producto = Column(Integer, primary_key=True)
     username = Column(Integer)
     nombre = Column(String(20))
     descripcion = Column(String)
@@ -27,6 +27,7 @@ class Producto(Base):
         regresa una representación del modelo en un diccionario
         '''
         return dict(
+            id_producto=self.id_producto,
             username=self.username,
             nombre=self.nombre,
             descripcion=self.descripcion,
