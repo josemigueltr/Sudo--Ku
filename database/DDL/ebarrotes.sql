@@ -21,9 +21,9 @@ DROP TABLE IF EXISTS `comprador`;
 
 CREATE TABLE comprador (
 	username varchar(20) NOT NULL,
-	correo varchar(20) NOT NULL,
+	correo varchar(100) NOT NULL,
 	telefono varchar(15) NOT NULL,
-	constrasenia varchar(100) NOT NULL,
+	contrasenia varchar(200) NOT NULL,
 	CONSTRAINT Comprador_PK PRIMARY KEY (username)
 )
 ENGINE=InnoDB
@@ -39,9 +39,9 @@ DROP TABLE IF EXISTS `vendedor`;
  
 CREATE TABLE vendedor (
 	username varchar(20) NOT NULL,
-	correo varchar(20) NOT NULL,
+	correo varchar(100) NOT NULL,
 	telefono varchar(15) NOT NULL,
-	constrasenia varchar(100) NOT NULL,
+	contrasenia varchar(200) NOT NULL,
 	CONSTRAINT Vendedor_PK PRIMARY KEY (username)
 )
 ENGINE=InnoDB
@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS producto;
 CREATE TABLE producto (
 	id_producto INT auto_increment NOT NULL,
 	username varchar(20) NOT NULL,
-	nombre varchar(20) NOT NULL,
+	nombre varchar(200) NOT NULL,
 	descripcion TEXT NOT NULL,
 	precio FLOAT NOT NULL,
 	calificacion INT NOT NULL,
