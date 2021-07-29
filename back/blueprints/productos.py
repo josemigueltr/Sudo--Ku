@@ -32,8 +32,9 @@ def buscar_producto(query):
 
 @bp.route('/<id>', methods=['GET'])
 def ver_informacion_producto(id):
-  # TODO controlador: ver información de producto
-  pass
+  session = Session()
+  producto = session.query(Producto).get(id)
+  return jsonify(producto.to_dict())
 
 @bp.route('/', methods=['POST'])
 def agregar_producto(id):
