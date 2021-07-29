@@ -19,9 +19,10 @@ def consultar_lista_productos():
   return jsonify([p.to_dict() for p in productos])
 
 @bp.route('/search/<query>', methods=['GET'])
-def buscar_producto():
-  # TODO controlador: buscar producto
-  pass
+def buscar_producto(query):
+  session = Session()
+  busqueda = session.query(Producto).filter(Producto.nombre.like('%{}%'.format(query)))
+  return jsonify([p.to_dict() for p in busqueda])
 
 @bp.route('/<id>', methods=['GET'])
 def ver_informacion_producto(id):
