@@ -1,9 +1,13 @@
 # flask
 from flask import Blueprint, jsonify, request
+import random
+import datetime
 
 # models
 from models.conexion_bd import Session
 from models.producto import Producto
+from models.opinion import Opinion
+from models.comprador import Comprador
 
 # aws
 from boto3.exceptions import S3UploadFailedError
@@ -34,7 +38,11 @@ def buscar_producto(query):
 def ver_informacion_producto(id):
   session = Session()
   producto = session.query(Producto).get(id)
-  return jsonify(producto.to_dict())
+  opiniones = producto.opiniones
+  respuesta = {}
+  respuesta['producto'] = producto.to_dict()
+  respuesta['opiniones'] = {idx: opinion.as_dict() for idx, opinion in enumerate(opiniones)}
+  return jsonify(respuesta)
 
 @bp.route('/', methods=['POST'])
 def agregar_producto(id):

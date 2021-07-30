@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float
 from .conexion_bd import Base
+from sqlalchemy.orm import relationship
 
 class Producto(Base):
     __tablename__ = 'producto'
@@ -12,6 +13,8 @@ class Producto(Base):
     calificacion = Column(Integer)
     stock = Column(Integer)
     foto = Column(String(100))
+
+    opiniones = relationship('Opinion', backref='producto')
 
     def __init__(self, username, nombre, descripcion, precio, calificacion, stock, foto):
         self.username = username
