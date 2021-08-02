@@ -17,7 +17,7 @@ export class ProductosService {
   }
 
   consultarListaProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>('')
+    return this.http.get<Producto[]>('http://localhost:5000/productos/')
   }
 
   buscarProducto(): Observable<Producto[]> {
