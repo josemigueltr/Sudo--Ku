@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Route } from '@angular/compiler/src/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent{
   // TODO: vista: cerrar sesión
-  constructor() { }
 
-  ngOnInit(): void {
+  // properties
+  busqueda = ''
+
+  constructor(
+    private router: Router
+  ) { }
+
+  buscarProducto() {
+    this.router.navigate([`/busqueda/${this.busqueda.replace(/\s/g, '_')}`])
   }
 
 }

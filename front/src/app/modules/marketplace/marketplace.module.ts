@@ -10,6 +10,7 @@ import { CompraComponent } from './pages/compra/compra.component';
 import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 import { CardProductoComponent } from './components/card-producto/card-producto.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MarketplaceRoutingModule,
     SharedModule
   ]
