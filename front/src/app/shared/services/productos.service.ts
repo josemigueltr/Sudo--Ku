@@ -22,7 +22,7 @@ export class ProductosService {
   }
 
   buscarProducto(busqueda: string): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`http://localhost:5000/productos/search/${busqueda}`)
+    return this.http.get<Producto[]>(`${API_BASE}/productos/search/${busqueda}`)
   }
 
   verInformacionProducto(): Observable<Producto> {
