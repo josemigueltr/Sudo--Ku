@@ -1,10 +1,16 @@
 # flask
-from flask import Flask, request, make_response, redirect, session
+from flask import Flask
+
+# flask-cors
+from flask_cors import CORS
 
 # blueprints
 from blueprints import auth, ordenes, productos
 
 app = Flask(__name__)
+
+# configuring CORS
+CORS(app)
 
 app.config['SECRET_KEY'] = 'SUPER SEGURO'
 
