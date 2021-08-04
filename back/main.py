@@ -13,7 +13,6 @@ app.config['MAIL_PASSWORD'] = 'ebarrotes@ingesoft'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['SECRET_KEY'] = 'SUPER SEGURO'
-app.config['SECRET_KEY'] = 'SUPER SEGURO'
 
 app.register_blueprint(auth.bp)
 app.register_blueprint(ordenes.bp)
