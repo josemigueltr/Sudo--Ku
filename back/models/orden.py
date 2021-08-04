@@ -10,10 +10,9 @@ class Orden(Base):
     id_datos_envio = Column(Integer, ForeignKey('datos_de_envio.id_datos_envio'))
     total=Column(Integer)
     compras_prod = relationship('Compra_producto', backref='orden_id')
-
+    
 
     def __init__(self,comprador,direccion):
         self.username=comprador.username
         self.id_datos_envio=direccion.id_datos_envio   
         self.total=0
-    
