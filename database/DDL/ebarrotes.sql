@@ -81,8 +81,8 @@ CREATE TABLE orden (
 	id_datos_envio INT NOT NULL,
 	total FLOAT NOT NULL,
 	CONSTRAINT orden_PK PRIMARY KEY (id_orden),
-	CONSTRAINT orden_FK FOREIGN KEY (username) REFERENCES comprador(username),
-	CONSTRAINT orden_FK_1 FOREIGN KEY (id_datos_envio) REFERENCES  datos_de_envio(id_datos_envio)
+	CONSTRAINT orden_FK FOREIGN KEY (username) REFERENCES comprador(username) ON DELETE CASCADE,
+	CONSTRAINT orden_FK_1 FOREIGN KEY (id_datos_envio) REFERENCES  datos_de_envio(id_datos_envio)  ON DELETE CASCADE
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -106,7 +106,7 @@ CREATE TABLE producto (
 	stock INT NOT NULL,
 	foto varchar(100) NOT NULL,
 	CONSTRAINT producto_PK PRIMARY KEY (id_producto),
-	CONSTRAINT producto_FK FOREIGN KEY (username) REFERENCES vendedor(username)
+	CONSTRAINT producto_FK FOREIGN KEY (username) REFERENCES vendedor(username)  ON DELETE CASCADE
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -124,8 +124,8 @@ CREATE TABLE compra_producto (
 	id_producto INT NOT NULL,
 	cantidad INT NOT NULL,
 	CONSTRAINT compra_producto_PK PRIMARY KEY (id_orden,id_producto),
-	CONSTRAINT compra_producto_FK FOREIGN KEY (id_orden) REFERENCES orden(id_orden),
-	CONSTRAINT compra_producto_FK_1 FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
+	CONSTRAINT compra_producto_FK FOREIGN KEY (id_orden) REFERENCES orden(id_orden)  ON DELETE CASCADE,
+	CONSTRAINT compra_producto_FK_1 FOREIGN KEY (id_producto) REFERENCES producto(id_producto)  ON DELETE CASCADE
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -147,8 +147,8 @@ CREATE TABLE opinion (
 	contenido TEXT NOT NULL,
 	fecha DATE NOT NULL,
 	CONSTRAINT opinion_PK PRIMARY KEY (id_opinion),
-	CONSTRAINT opinion_FK FOREIGN KEY (username) REFERENCES comprador(username),
-	CONSTRAINT opinion_FK_1 FOREIGN KEY (id_producto) REFERENCES  producto(id_producto)
+	CONSTRAINT opinion_FK FOREIGN KEY (username) REFERENCES comprador(username)  ON DELETE CASCADE,
+	CONSTRAINT opinion_FK_1 FOREIGN KEY (id_producto) REFERENCES  producto(id_producto)  ON DELETE CASCADE
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4

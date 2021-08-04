@@ -1,5 +1,8 @@
 # flask
-from flask import Flask, request, make_response, redirect, session
+from flask import Flask
+
+# flask-cors
+from flask_cors import CORS
 
 # blueprints
 from blueprints import auth, ordenes, productos
@@ -12,6 +15,10 @@ app.config['MAIL_USERNAME'] = 'ebarrotes@gmail.com'
 app.config['MAIL_PASSWORD'] = 'ebarrotes@ingesoft'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
+
+# configuring CORS
+CORS(app)
+
 app.config['SECRET_KEY'] = 'SUPER SEGURO'
 
 app.register_blueprint(auth.bp)
