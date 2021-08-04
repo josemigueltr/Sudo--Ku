@@ -13,7 +13,6 @@ class Producto(Base):
     calificacion = Column(Integer)
     stock = Column(Integer)
     foto = Column(String(100))
-    compras = relationship('Compra_producto', backref='producto_id')
 
     def __init__(self, username, nombre, descripcion, precio, calificacion, stock, foto):
         self.username = username

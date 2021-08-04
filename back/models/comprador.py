@@ -9,7 +9,6 @@ class Comprador(Base):
     correo = Column(String)
     telefono = Column(String)
     contrasenia = Column(String)
-    ordenes = relationship('Orden', backref='comprador_id')
 
 
 

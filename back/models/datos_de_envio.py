@@ -11,8 +11,7 @@ class Datos_de_envio(Base):
     cp = Column(String)
     direccion = Column(String)
     entre_calles = Column(String)
-    orden = relationship('Orden', backref='direccion_id')
-
+    
     def __init__(self, estado, cp, direccion, entre_calles):
         """Constructor de la clase."""
         self.estado = estado
