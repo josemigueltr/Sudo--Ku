@@ -1,9 +1,10 @@
 # flask
 from flask import Blueprint, jsonify, request
-
+from sqlalchemy import func
 # models
 from models.conexion_bd import Session
 from models.producto import Producto
+from models.compra_producto import Compra_producto
 
 # aws
 from boto3.exceptions import S3UploadFailedError
@@ -15,8 +16,11 @@ bp = Blueprint('productos', __name__, url_prefix='/productos')
 
 @bp.route('/mas-vendidos', methods=['GET'])
 def consultar_productos_mas_vendidos():
-  # TODO controlador: consultar productos más vendidos
-  pass
+  session = Session()
+  query = session.query(Producto).join(Compra_producto, Producto.id_producto == Compra_producto.id_producto).group_by(Compra_producto.id_producto).order_by(func.sum(Compra_producto.cantidad).desc() )
+  result = query.all()
+  return jsonify([producto.to_dict() for  producto in result])
+
 
 @bp.route('/', methods=['GET'])
 def consultar_lista_productos():
