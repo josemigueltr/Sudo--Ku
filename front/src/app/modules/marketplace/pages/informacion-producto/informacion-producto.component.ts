@@ -10,7 +10,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./informacion-producto.component.scss']
 })
 export class InformacionProductoComponent implements OnInit {
-  // TODO: vista: ver información del producto
  
   producto: Producto | undefined
   opiniones: Opinion[] | undefined
@@ -21,8 +20,27 @@ export class InformacionProductoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+    const id = params.get('id')?.replace(/_/g, ' ') || ''
+    this.servicioProductos.verInformacionProducto(id).subscribe(
+      data => {
+        this.producto = data.producto
+        this.opiniones = data.opiniones
+      },
+      error => {
+        Swal.fire({
+          title: 'Error del servidor',
+          text: 'Por favor, intentalo mas tarde',
+          icon: 'error'
+        })
+      }
+    )
+    })
 
+  }
 
+  counter(size: number): any[] {
+      return new Array(size)
   }
 
 }

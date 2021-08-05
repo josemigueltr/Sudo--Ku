@@ -51,3 +51,8 @@ export interface CompraProducto {
   id_producto: number
   cantidad: number
 }
+
+export interface ProductoOpinion {
+  producto: Producto
+  opiniones: Opinion[]
+}

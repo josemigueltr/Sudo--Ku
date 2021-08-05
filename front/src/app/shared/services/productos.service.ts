@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_BASE } from '../constants';
-import { Producto } from '../models';
+import { Producto, ProductoOpinion } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,8 @@ export class ProductosService {
     return this.http.get<Producto[]>('')
   }
 
-  verInformacionProducto(id: string): Observable<Producto> {
-    return this.http.get<Producto>(`${API_BASE}/productos/${id}`)
+  verInformacionProducto(id: string): Observable<ProductoOpinion> {
+    return this.http.get<ProductoOpinion>(`${API_BASE}/productos/${id}`)
   }
 
   agregarProducto(): Observable<any> {

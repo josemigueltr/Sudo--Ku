@@ -41,7 +41,7 @@ def ver_informacion_producto(id):
   opiniones = producto.opiniones
   respuesta = {}
   respuesta['producto'] = producto.to_dict()
-  respuesta['opiniones'] = {idx: opinion.as_dict() for idx, opinion in enumerate(opiniones)}
+  respuesta['opiniones'] = [opinion.as_dict() for opinion in opiniones]
   return jsonify(respuesta)
 
 @bp.route('/', methods=['POST'])
