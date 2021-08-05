@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Comprador } from 'src/app/shared/models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  registrarse(): Observable<any> {
-    return this.http.post('', {})
+  registrarse(user:Comprador): Observable<any> {
+    return this.http.post(API_BASE + '/auth/signin', user)
   }
 
   iniciarSesion(): Observable<any> {
