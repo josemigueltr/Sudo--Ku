@@ -14,7 +14,7 @@ export class ProductosService {
   ) { }
 
   consultarProductosMasVendidos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>('')
+    return this.http.get<Producto[]>(API_BASE + '/productos/mas-vendidos')
   }
 
   consultarListaProductos(): Observable<Producto[]> {
