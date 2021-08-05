@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'compra',
     component: CompraComponent
   },{
-    path: 'busqueda',
+    path: 'busqueda/:busqueda',
     component: BusquedaComponent
   }
 ];
