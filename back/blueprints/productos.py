@@ -8,6 +8,9 @@ from models.conexion_bd import Session
 from models.producto import Producto
 from models.compra_producto import Compra_producto
 
+# blueprints
+from .auth import login_required
+
 # aws
 from boto3.exceptions import S3UploadFailedError
 
@@ -67,6 +70,7 @@ def agregar_producto(username):
 
 
 @bp.route('/<id>', methods=['PUT'])
+@login_required
 def editar_producto(id):
   session = Session()
   producto = session.query(Producto).get(id)
