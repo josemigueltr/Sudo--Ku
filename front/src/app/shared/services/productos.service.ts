@@ -14,15 +14,15 @@ export class ProductosService {
   ) { }
 
   consultarProductosMasVendidos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>('')
+    return this.http.get<Producto[]>(API_BASE + '/productos/mas-vendidos')
   }
 
   consultarListaProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>('')
+    return this.http.get<Producto[]>(API_BASE + '/productos/')
   }
 
-  buscarProducto(): Observable<Producto[]> {
-    return this.http.get<Producto[]>('')
+  buscarProducto(busqueda: string): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${API_BASE}/productos/search/${busqueda}`)
   }
 
   verInformacionProducto(id: string): Observable<ProductoOpinion> {

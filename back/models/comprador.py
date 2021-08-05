@@ -12,6 +12,7 @@ class Comprador(Base):
     opiniones = relationship('Opinion', backref='comprador')
 
 
+
     def __init__(self, username, correo, telefono, contrasenia):
         self.username = username
         self.correo = correo
