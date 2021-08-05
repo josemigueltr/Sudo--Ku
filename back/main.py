@@ -9,6 +9,13 @@ from blueprints import auth, ordenes, productos
 
 app = Flask(__name__)
 
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'ebarrotes@gmail.com'
+app.config['MAIL_PASSWORD'] = 'ebarrotes@ingesoft'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
 # configuring CORS
 CORS(app)
 

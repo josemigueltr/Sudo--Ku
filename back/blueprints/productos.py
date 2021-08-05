@@ -1,6 +1,8 @@
 # flask
 from flask import Blueprint, jsonify, request
 from sqlalchemy import func
+from flask.wrappers import Response
+
 # models
 from models.conexion_bd import Session
 from models.producto import Producto
@@ -39,10 +41,30 @@ def ver_informacion_producto(id):
   # TODO controlador: ver información de producto
   pass
 
-@bp.route('/', methods=['POST'])
-def agregar_producto(id):
-  # TODO controlador: agregar producto
-  pass
+@bp.route('/<username>', methods=['POST'])
+def agregar_producto(username):
+  session = Session()
+  params = request.form
+
+  nombre = params['nombre']
+  descripcion = params['descripcion']
+  precio =  params['precio']
+  calificacion = params['calificacion']
+  stock = params['stock']
+
+  producto = Producto(username, nombre,descripcion, precio, calificacion, stock, '')
+  if 'foto' in request.files:
+    try:
+      producto.foto = upload_file(request.files['foto'])
+    except S3UploadFailedError as e:
+      return jsonify(dict(
+        message=str(e)
+      )), 500
+
+  session.add(producto)
+  session.commit()
+  return jsonify(producto.to_dict()), 200
+
 
 @bp.route('/<id>', methods=['PUT'])
 def editar_producto(id):

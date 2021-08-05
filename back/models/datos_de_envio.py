@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from models.conexion_bd import Base
+from sqlalchemy.orm import relationship
 
 
 class Datos_de_envio(Base):
@@ -10,7 +11,7 @@ class Datos_de_envio(Base):
     cp = Column(String)
     direccion = Column(String)
     entre_calles = Column(String)
-
+    
     def __init__(self, estado, cp, direccion, entre_calles):
         """Constructor de la clase."""
         self.estado = estado
