@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { API_BASE } from '../constants';
 import { Producto } from '../models';
 
 @Injectable({
@@ -24,8 +25,8 @@ export class ProductosService {
     return this.http.get<Producto[]>('')
   }
 
-  verInformacionProducto(): Observable<Producto> {
-    return this.http.get<Producto>('')
+  verInformacionProducto(id: string): Observable<Producto> {
+    return this.http.get<Producto>(`${API_BASE}/productos/${id}`)
   }
 
   agregarProducto(): Observable<any> {
