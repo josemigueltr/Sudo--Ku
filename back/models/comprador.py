@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String
 from models.conexion_bd import Base
+from sqlalchemy.orm import relationship
 
 class Comprador(Base):
 
@@ -8,6 +9,7 @@ class Comprador(Base):
     correo = Column(String)
     telefono = Column(String)
     contrasenia = Column(String)
+
 
 
     def __init__(self, username, correo, telefono, contrasenia):
