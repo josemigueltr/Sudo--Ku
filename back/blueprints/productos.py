@@ -1,5 +1,6 @@
 # flask
 from flask import Blueprint, jsonify, request
+from flask.wrappers import Response
 
 # models
 from models.conexion_bd import Session

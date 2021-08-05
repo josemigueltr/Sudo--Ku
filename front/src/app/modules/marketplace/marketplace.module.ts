@@ -8,8 +8,8 @@ import { MarketplaceRoutingModule } from './markerplace-routing.module';
 import { CalificarProductoComponent } from './components/calificar-producto/calificar-producto.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import { BusquedaComponent } from './pages/busqueda/busqueda.component';
-
-
+import { CardProductoComponent } from './components/card-producto/card-producto.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,11 +19,13 @@ import { BusquedaComponent } from './pages/busqueda/busqueda.component';
     CarritoComponent,
     CalificarProductoComponent,
     CompraComponent,
-    BusquedaComponent
+    BusquedaComponent,
+    CardProductoComponent
   ],
   imports: [
     CommonModule,
-    MarketplaceRoutingModule
+    MarketplaceRoutingModule,
+    SharedModule
   ]
 })
 export class MarketplaceModule { }
