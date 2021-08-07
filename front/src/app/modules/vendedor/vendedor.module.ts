@@ -5,6 +5,7 @@ import { ListaProductosComponent } from './pages/lista-productos/lista-productos
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { EditarProductoComponent } from './components/editar-producto/editar-producto.component';
 import { EliminarProductoComponent } from './components/eliminar-producto/eliminar-producto.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { EliminarProductoComponent } from './components/eliminar-producto/elimin
   ],
   imports: [
     CommonModule,
-    VendedorRoutingModule
+    VendedorRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class VendedorModule { }

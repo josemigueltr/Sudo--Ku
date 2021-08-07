@@ -71,7 +71,6 @@ def load_user():
   if 'Authorization' in request.headers:
     # Authorization: Bearer ...
     token = request.headers['Authorization'][7:]
-
   if token is None:
     g.user = None
   else:
@@ -102,6 +101,6 @@ def login_required(controlador):
   @wraps(controlador)
   def nuevo_controlador(**kwargs):
     if g.user is None:
-      return jsonify({'mensaje': 'usuario no autorizado'})
+      return jsonify({'mensaje': 'usuario no autorizado'}), 401
     return controlador(**kwargs)
   return nuevo_controlador
