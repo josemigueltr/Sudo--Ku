@@ -51,3 +51,8 @@ export interface CompraProducto {
   id_producto: number
   cantidad: number
 }
+
+export interface Item {
+  producto: Producto
+  cantidad: number
+}

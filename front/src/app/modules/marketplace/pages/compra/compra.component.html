@@ -1,1 +1,90 @@
-<p>compra works!</p>
+
+<div class="container">
+    <h2 class=" mb-4">
+        Ingresa los siguientes datos:
+    </h2>
+
+    <div class="container">
+            <h3 class=" pt-3 text-secondary">Datos de envío:</h3>                
+         
+            <form [formGroup]="exform" (ngSubmit)="onSubmit()">
+              <div class="row">
+
+ 
+                <div class="form-group col col-6">
+                  <label class="col-form-label">Direccion :</label>
+                  <input formControlName="direccion" type="text" class="form-control"  >
+                  <small *ngIf="direccion?.invalid && direccion.touched" class="text-danger">La direccion es requerido</small> 
+                 </div>
+                 
+                 <div class="form-group col-6">
+                    <label class="col-form-label">Estado: </label>
+                    <input formControlName="estado" type="text" class="form-control"  >
+                    <small *ngIf="estado?.invalid && estado.touched" class="text-danger">El estado es requerido</small> 
+                   </div>
+                   
+                 
+                   <div class="form-group col-6">
+                    <label class="col-form-label">Entre que calles: </label>
+                    <input formControlName="entreQueCalles" type="text" class="form-control"  >
+                    <small *ngIf="entreQueCalles?.invalid && entreQueCalles.touched" class="text-danger">Las calles son requeridas</small> 
+                   </div>
+                   
+                   
+                 <div class="form-group col-6">
+                    <label class="col-form-label">Codigo postal: </label>
+                    <input formControlName="codigoPostal" type="text" class="form-control"  >
+                    <small *ngIf="codigoPostal?.invalid && codigoPostal.touched" class="text-danger">El Codigo postal es requerido</small> 
+                   </div>
+
+                <h3 class=" pt-3 text-secondary">Datos de pago:</h3>  
+                
+
+                <div class="form-group col-12">
+                  <label class="col-form-label">Nombre del propietario: </label>
+                  <input formControlName="propietario" type="text" class="form-control"  >
+                  <small *ngIf="propietario?.invalid && propietario?.touched" class="text-danger">Este campo es requerido</small> 
+                 </div>      
+                 <div class="form-group col-5">
+                  <label class="col-form-label">Numero de tarjeta:</label>
+                  <input formControlName="numeroDeTarjeta" type="text" class="form-control"  >
+                  <small *ngIf="numeroDeTarjeta?.invalid && numeroDeTarjeta?.touched" class="text-danger">Ingresa un numero de tarjeta valido</small> 
+                 </div>      
+
+                 <div class="form-group col-3">
+                  <label class="col-form-label">Fecha de expiración:</label>
+                  <div class="input-group ">
+                    
+                    <input type="number" class="form-control" formControlName="mes" min="1" max="12"
+                        autocomplete="off" placeholder="MM"  required>
+                    <span class="input-group-text">/</span>
+                    <input type="number" class="form-control"  formControlName="anio" min="21" autocomplete="off"
+                        placeholder="YY"  required>
+                             
+                </div>
+                <small *ngIf="mes?.invalid && mes?.touched || anio?.invalid && anio?.touched" class="text-danger">Este campo es obligatorio</small> 
+    
+                 </div>      
+                 <div class="form-group col-3">
+                  <label class="col-form-label">cvv: </label>
+                  <input formControlName="cvv" type="text" class="form-control"  >
+                  <small *ngIf="cvv?.invalid && cvv?.touched" class="text-danger">Ingresa un cvv valido</small> 
+                 </div>      
+
+              </div>  
+             
+              <div class="text-end">
+
+                <button [disabled]="exform.invalid  " class="continuar  float-left btn btn-primary">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  Finalizar Compra
+                </button>
+       
+              </div>
+              
+            </form>
+        </div>
+
+
+
+</div>
