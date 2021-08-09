@@ -6,7 +6,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <div id="nombre_prd">
@@ -45,18 +45,24 @@
                     <div id="opiniones-box-prd">
                         <h3>Opiniones</h3>
                         <div id="calificacion_gral_producto">
-                            <h4>Los usuarios califican este producto con: {{producto?.calificacion}} </h4>
+                            <h4>Los usuarios califican este producto con: 
+                            <img 
+                             *ngFor="let star of counter(producto?.calificacion || 0)"
+                             class="star"
+                             src="assets/star-filled.svg" 
+                             alt="estrella con relleno"/>
+                            </h4>
                         </div>
                         <div class="opinion_usuario_box" *ngFor="let opinion of opiniones">
                             <div class="nom_usuario"> {{opinion?.username}}
-                            </div>
-                            <span class="calif_usuario">{{opinion?.valoracion}}
+                            <span class="calif_usuario">
                                 <img 
-                                 *ngFor="let star of counter(opinion?.valoracion || 0)"
-                                 class="star"
-                                 src="assets/star-filled.svg" 
-                                 alt="estrella con relleno"/>
+                                    *ngFor="let star of counter(opinion?.valoracion || 0)"
+                                    class="star"
+                                    src="assets/star-filled.svg" 
+                                    alt="estrella con relleno"/>
                             </span>
+                            </div>
                             <div class="opinion_contenido">
                                 <p> {{opinion?.contenido}}</p>
                             </div>
