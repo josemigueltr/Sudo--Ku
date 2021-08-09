@@ -56,3 +56,8 @@ export interface ProductoOpinion {
   producto: Producto
   opiniones: Opinion[]
 }
+
+export interface Item {
+  producto: Producto
+  cantidad: number
+}
