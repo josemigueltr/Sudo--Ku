@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Producto, Opinion} from 'src/app/shared/models';
 import { ProductosService } from 'src/app/shared/services/productos.service';
+import { CartService } from 'src/app/shared/services/cart.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +17,8 @@ export class InformacionProductoComponent implements OnInit {
   
   constructor(
       private servicioProductos: ProductosService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute, 
+      private carro: CartService
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +28,7 @@ export class InformacionProductoComponent implements OnInit {
       data => {
         this.producto = data.producto
         this.opiniones = data.opiniones
+        console.log(this.opiniones)
       },
       error => {
         Swal.fire({
@@ -37,6 +40,16 @@ export class InformacionProductoComponent implements OnInit {
     )
     })
 
+  }
+
+  addCarro(): void {
+    if(this.producto != undefined)
+      this.carro.addToCart(this.producto!)
+    Swal.fire({
+      title: 'Hecho',
+      text: 'Se ha agregado el producto a tu carrito',
+      icon: 'success'
+    })
   }
 
   counter(size: number): any[] {

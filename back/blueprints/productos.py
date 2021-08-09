@@ -45,10 +45,13 @@ def buscar_producto(query):
 def ver_informacion_producto(id):
   session = Session()
   producto = session.query(Producto).get(id)
-  opiniones = producto.opiniones
   respuesta = {}
-  respuesta['producto'] = producto.to_dict()
-  respuesta['opiniones'] = [opinion.as_dict() for opinion in opiniones]
+  if(producto is not None):
+    respuesta['producto'] = producto.to_dict()
+    if(producto.opiniones is not None):
+      opiniones = producto.opiniones
+      respuesta['opiniones'] = [opinion.as_dict() for opinion in opiniones]
+
   return jsonify(respuesta)
 
 @bp.route('/<username>', methods=['POST'])
