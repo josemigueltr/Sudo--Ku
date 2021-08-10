@@ -15,9 +15,20 @@ export class CartService {
   
   
     constructor() {
-      this.items=[]
+      this.items=this.getCart()
     }
   
+    getCart() {
+      let cart= localStorage.getItem("cart");
+      if(cart){
+        return JSON.parse(cart);
+      }
+      return [];
+    }
+    
+    saveCart() {
+     localStorage.setItem("cart", JSON.stringify(this.items));
+    }
 
   addToCart(prod: Producto) {
     
@@ -26,9 +37,11 @@ export class CartService {
     //Si no tenemos agregado el producto
     if (!prodExist) {
       this.items.push({producto:prod, cantidad:1}); 
+      this.saveCart();
       return;
    }
     prodExist.cantidad += 1;
+    this.saveCart();
   }
 
   
@@ -55,6 +68,7 @@ export class CartService {
     this.items.map((it:Item, index:any)=>{
       if(item.producto.id_producto === it.producto.id_producto){
         this.items.splice(index,1);
+        this.saveCart();
         return;
       }
     })
