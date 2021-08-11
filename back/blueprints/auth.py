@@ -38,7 +38,7 @@ def registrarse():
   corr= session.query(usuario.__class__).filter(usuario.__class__.correo ==correo).first()
   if usr or corr:
     msg="username" if usr else "correo" 
-    return jsonify(f"server: El {msg} ya se encuentra en uso"), 401
+    return jsonify(f"server: El {msg} ya se encuentra en uso"), 400
   try:
     session.add(usuario)
     envia_mail((correo,username,rol,contrasenia),"registro")
