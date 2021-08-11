@@ -37,8 +37,8 @@ export class ProductosService {
     return this.http.put<Producto>('', {})
   }
 
-  eliminarProducto(): Observable<any> {
-    return this.http.delete('')
+  eliminarProducto(id: string): Observable<any> {
+    return this.http.delete(`${API_BASE}/productos/${id}`)
   }
 
   calificarProducto(): Observable<any> {
