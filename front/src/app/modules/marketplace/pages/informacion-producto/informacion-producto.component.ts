@@ -14,6 +14,7 @@ export class InformacionProductoComponent implements OnInit {
  
   producto: Producto | undefined
   opiniones: Opinion[] | undefined
+  loading = false
   
   constructor(
       private servicioProductos: ProductosService,
@@ -24,6 +25,7 @@ export class InformacionProductoComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
     const id = params.get('id')?.replace(/_/g, ' ') || ''
+    this.loading = true
     this.servicioProductos.verInformacionProducto(id).subscribe(
       data => {
         this.producto = data.producto
@@ -36,6 +38,9 @@ export class InformacionProductoComponent implements OnInit {
           text: 'Por favor, intentalo mas tarde',
           icon: 'error'
         })
+      },
+      () => {
+        this.loading = false
       }
     )
     })

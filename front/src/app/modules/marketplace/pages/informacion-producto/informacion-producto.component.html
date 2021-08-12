@@ -1,20 +1,23 @@
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Tocame!
-</button>
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-informacion-producto" tabindex="-1" aria-labelledby="modal-informacion-producto-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <div id="nombre_prd">
-                    <h4>{{producto?.nombre || "Este producto no existe"}}</h4>
+                    <h4>{{loading ? 'Cargando...' : producto?.nombre || "Este producto no existe"}}</h4>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div id="contenedor-producto" class="container-fluid">
+                <div class="text-center" *ngIf="loading">
+                    <div 
+                        class="spinner-border text-warning" 
+                        style="width: 3rem; height: 3rem;" 
+                        role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div id="contenedor-producto" class="container-fluid" *ngIf="!loading">
                     <div id="encabezado-prd" class="row">
                         <div id="img-prd" class="col-8">
                             <img [src]="producto?.foto || 'assets/placeholder.png'" class="img-fluid" alt="imagen del producto">
