@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_BASE } from '../constants';
-import { Producto } from '../models';
+import { Producto, ProductoOpinion } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ProductosService {
   ) { }
 
   consultarProductosMasVendidos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>('')
+    return this.http.get<Producto[]>(API_BASE + '/productos/mas-vendidos')
   }
 
   consultarListaProductos(): Observable<Producto[]> {
@@ -25,16 +25,27 @@ export class ProductosService {
     return this.http.get<Producto[]>(`${API_BASE}/productos/search/${busqueda}`)
   }
 
-  verInformacionProducto(): Observable<Producto> {
-    return this.http.get<Producto>('')
+  verInformacionProducto(id: string): Observable<ProductoOpinion> {
+    return this.http.get<ProductoOpinion>(`${API_BASE}/productos/${id}`)
   }
 
   agregarProducto(): Observable<any> {
     return this.http.post('', {})
   }
 
-  editarProducto(): Observable<Producto> {
-    return this.http.put<Producto>('', {})
+  editarProducto(producto: Producto, foto: File | undefined): Observable<Producto> {
+    const data = new FormData();
+    data.append('nombre', producto.nombre)
+    data.append('descripcion', producto.descripcion)
+    data.append('precio', producto.precio.toFixed(2))
+    data.append('stock', producto.stock.toString())
+    if (foto) data.append('foto', foto)
+
+    // agregando autorizacion al header (hardcodeado)
+    const headers = new HttpHeaders()
+      .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2ZW5kZWRvcjEiLCJpYXQiOjE1MTYyMzkwMjJ9.pp5DktBII_cFDrWhD0Oz9_F9UB0Eb3zlYYgGJR3Etns')
+    
+    return this.http.put<Producto>(`${API_BASE}/productos/${producto.id_producto}`, data, {headers})
   }
 
   eliminarProducto(): Observable<any> {

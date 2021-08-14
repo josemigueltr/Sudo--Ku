@@ -38,7 +38,7 @@ def registrarse():
   corr= session.query(usuario.__class__).filter(usuario.__class__.correo ==correo).first()
   if usr or corr:
     msg="username" if usr else "correo" 
-    return jsonify(f"server: El {msg} ya se encuentra en uso"), 401
+    return jsonify(f"server: El {msg} ya se encuentra en uso"), 400
   try:
     session.add(usuario)
     envia_mail((correo,username,rol,contrasenia),"registro")
@@ -71,7 +71,6 @@ def load_user():
   if 'Authorization' in request.headers:
     # Authorization: Bearer ...
     token = request.headers['Authorization'][7:]
-
   if token is None:
     g.user = None
   else:
@@ -119,6 +118,7 @@ def login_required_vendedor(controlador):
   @wraps(controlador)
   def nuevo_controlador(**kwargs):
     if not g.user  or  g.user.es_comprador:
+
       return jsonify({'mensaje': 'usuario no autorizado'}), 401
     return controlador(**kwargs)
   return nuevo_controlador

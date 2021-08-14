@@ -6,6 +6,8 @@ from flask.wrappers import Response
 # models
 from models.conexion_bd import Session
 from models.producto import Producto
+from models.opinion import Opinion
+from models.comprador import Comprador
 from models.compra_producto import Compra_producto
 
 # blueprints
@@ -41,8 +43,16 @@ def buscar_producto(query):
 
 @bp.route('/<id>', methods=['GET'])
 def ver_informacion_producto(id):
-  # TODO controlador: ver información de producto
-  pass
+  session = Session()
+  producto = session.query(Producto).get(id)
+  respuesta = {}
+  if(producto is not None):
+    respuesta['producto'] = producto.to_dict()
+    if(producto.opiniones is not None):
+      opiniones = producto.opiniones
+      respuesta['opiniones'] = [opinion.as_dict() for opinion in opiniones]
+
+  return jsonify(respuesta)
 
 @bp.route('/<username>', methods=['POST'])
 def agregar_producto(username):
@@ -95,8 +105,12 @@ def editar_producto(id):
 
 @bp.route('/<id>', methods=['DELETE'])
 def eliminar_producto(id):
-  # TODO controlador: eliminar producto
-  pass
+  session = Session()
+  producto = session.query(Producto).get(id)
+  session.delete(producto)
+  session.commit()
+  return jsonify("server: Se ha eliminado el producto")
+
 
 @bp.route('/<id>/calificaciones', methods=['POST'])
 def calificar_producto(id):

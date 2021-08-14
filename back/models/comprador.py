@@ -9,6 +9,7 @@ class Comprador(Base):
     correo = Column(String)
     telefono = Column(String)
     contrasenia = Column(String)
+    opiniones = relationship('Opinion', backref='comprador')
 
 
 

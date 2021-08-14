@@ -20,30 +20,35 @@ def comprar_producto():
   productos = request.json['productos']
   direccion = request.json['direccion_envio']
   cliente=request.json['comprador']
+ 
   try:
     direccion_envio=Datos_de_envio(direccion['estado'],direccion['cp'],direccion['direccion'],direccion['calles'])
     session.add(direccion_envio)
     comprador=session.query(Comprador).get(cliente)
+   
     #Reviso si el comprador existe
     if not comprador:
       return jsonify("server: Comprador invalido"),401
-  
+
     ordenes=Orden(comprador,direccion_envio)	
+    
     for prod in productos:
       producto=session.query(Producto).get(prod['id_producto'])
       
       if not producto:
         return jsonify("server: El producto no existe"),401
-        
+
         #reviso que el stock sea suficiente
       elif producto.stock - prod['cantidad'] < 0:
         return jsonify("server: Stock insuficiente"),401
 
         #actualizo stock
       producto.stock-= int (prod['cantidad'])
+      
       ordenes.total += float(producto.precio) * float(prod['cantidad']) 
-      compra=Compra_producto( cantidad=prod['cantidad'] , producto_id=producto)
+      compra=Compra_producto(prod['cantidad'] , producto)
       ordenes.compras_prod.append(compra)
+      
     
     session.add(ordenes)
     correo=comprador.correo
