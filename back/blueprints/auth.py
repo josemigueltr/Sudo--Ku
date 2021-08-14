@@ -17,6 +17,12 @@ from models.vendedor import Vendedor
 #utilities
 from utilities.usuario_utils import generar_contrasenia, envia_mail
 
+# Forms
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, FloatField, TextAreaField
+from wtforms.validators import InputRequired, Length, ValidationError, Email
+from flask_bcrypt import Bcrypt
+
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -48,11 +54,26 @@ def registrarse():
     return jsonify("server: Ha ocurrido un error intenta mas tarde"), 401
   return jsonify(f"server: Exito {rol} registrado.")
 
+class LoginForm(FlaskForm):
+  username = StringField(validators=[InputRequired(), Length(min=4, max=20)])
+  # TODO: Validacion pra tipo de usuario.
+  password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)])
+  submit = SubmitField("Continuar")
 
 @bp.route('/login', methods=['POST'])
 def iniciar_sesion():
-  # TODO: iniciar sesión
-  pass
+  form = LoginForm()
+    if form.validate_on_submit():
+      sesison = Session()
+      if (form.es_comprador):
+        user = session.query(Comprador).filter(username=form.username)
+      else
+        user = session.query(Vendedor).filter(username=form.username)
+      if user:
+          if bcrypt.check_password_hash(user.password, form.password.data):
+            token = jwt.encode({'sub': comprador.id_comprador, app.config['SECRET_KEY'])
+            return jsonify({'token' : token.decode('UTF-8')})
+    return render_template("login.html", form=form)
 
 @bp.route('/logout', methods=['POST'])
 def cerrar_sesion():
