@@ -7,6 +7,7 @@ import { Item } from 'src/app/shared/models';
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.scss']
 })
+
 export class CarritoComponent implements OnInit {
   // TODO: vista: comprar producto
  
@@ -26,9 +27,13 @@ export class CarritoComponent implements OnInit {
   }
   
 
-  stock(a:any) {}
+  stock(a:any) {
+    this.cartService.saveCart()
+  }
 
   removeItem(item:Item){
     this.cartService.removeItem(item);
   }
+
+  
 }
