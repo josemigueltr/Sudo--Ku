@@ -17,7 +17,7 @@ export class AuthService {
     return this.http.post(API_BASE + '/auth/signin', user)
   }
 
-  iniciarSesion(username, password, es_comprador): Observable<any> {
+  iniciarSesion(username: string, password: string, es_comprador: boolean): Observable<any> {
     return this.http.post(API_BASE + '/auth/login', {username, password, es_comprador})
   }
 

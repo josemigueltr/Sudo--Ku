@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Producto } from 'src/app/shared/models';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ProductosService } from 'src/app/shared/services/productos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
 
   username = ''
   password = ''
-  es_comprador = true
+  tipo = 'comprador'
+  loading = false
 
   constructor(
     private servicio: AuthService,
@@ -25,14 +26,29 @@ export class LoginComponent implements OnInit {
   }
 
   iniciarSesion(): void {
-    this.servicio.iniciarSesion(this.username, this.password, this.es_comprador).subscribe(respuesta => {
-      localStorage.setItem("token", respuesta.token)
-      localStorage.setItem("es_comprador", respuesta.es_comprador)
-      if (respuesta.es_comprador)
-        this.router.navigate({'/'})
-      else
-        this.router.navigate({'/vendedor'})
-    })
+    this.loading = true
+    this.servicio.iniciarSesion(
+      this.username, 
+      this.password, 
+      this.tipo === 'comprador'
+    ).subscribe(
+      respuesta => {
+        this.loading = false
+        localStorage.setItem("token", respuesta.token)
+        localStorage.setItem("es_comprador", respuesta.es_comprador)
+        if (respuesta.es_comprador)
+          this.router.navigate(['/'])
+        else
+          this.router.navigate(['/vendedor'])
+      },
+      error => {
+        this.loading = false
+        console.error(error)
+        if (error.status === 401)
+          Swal.fire('Lo siento', 'Usuario o contraseña incorrectos', 'error')
+        else
+          Swal.fire('Error del servidor', 'Por favor, intentalo mas tarde', 'error')
+      }
+    )
   }
-
 }

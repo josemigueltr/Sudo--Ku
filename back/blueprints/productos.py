@@ -114,14 +114,16 @@ def eliminar_producto(id):
 
 @bp.route('/<id>/calificaciones', methods=['POST'])
 def calificar_producto(id):
-  # TODO controlador: calificar producto
+  '''
   form = RatingForm()
-    if form.validate_on_submit():
-        product = Product.query.filter_by(id=id).first() # TODO: Crear sesion y obtener el Producto.
-        if product:
-            new_rating = (form.rating.data + product.rating) / 2
-            product.rating = new_rating
-            db.session.commit()
-            return redirect(url_for('store')) # TODO: Mandar json.
+  if form.validate_on_submit():
+    product = Product.query.filter_by(id=id).first() # TODO: Crear sesion y obtener el Producto.
+    if product:
+      new_rating = (form.rating.data + product.rating) / 2
+      product.rating = new_rating
+      db.session.commit()
+      return redirect(url_for('store')) # TODO: Mandar json.
     else:
-        return render_template('rate_product.html', form=form) # TODO: mandar json.
+      return render_template('rate_product.html', form=form) # TODO: mandar json.
+  '''
+  pass

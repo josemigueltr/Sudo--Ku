@@ -1,7 +1,7 @@
 # flask
-from flask import Blueprint,jsonify,request,g,current_app
+from flask import Blueprint, json,jsonify,request,g,current_app
 from flask.wrappers import Response
-from werkzeug.security import  generate_password_hash
+from werkzeug.security import  generate_password_hash, check_password_hash
 
 # JWT
 import jwt
@@ -19,9 +19,8 @@ from utilities.usuario_utils import generar_contrasenia, envia_mail
 
 # Forms
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FloatField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, FloatField, TextAreaField, BooleanField
 from wtforms.validators import InputRequired, Length, ValidationError, Email
-from flask_bcrypt import Bcrypt
 
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -56,24 +55,25 @@ def registrarse():
 
 class LoginForm(FlaskForm):
   username = StringField(validators=[InputRequired(), Length(min=4, max=20)])
-  # TODO: Validacion pra tipo de usuario.
   password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)])
+  es_comprador = BooleanField(validators=[InputRequired()])
   submit = SubmitField("Continuar")
 
 @bp.route('/login', methods=['POST'])
 def iniciar_sesion():
-  form = LoginForm()
-    if form.validate_on_submit():
-      sesison = Session()
-      if (form.es_comprador):
-        user = session.query(Comprador).filter(username=form.username)
-      else
-        user = session.query(Vendedor).filter(username=form.username)
-      if user:
-          if bcrypt.check_password_hash(user.password, form.password.data):
-            token = jwt.encode({'sub': comprador.id_comprador, app.config['SECRET_KEY'])
-            return jsonify({'token' : token.decode('UTF-8')})
-    return render_template("login.html", form=form)
+  import pdb;
+  session = Session()
+  if request.json['es_comprador']:
+    user = session.query(Comprador).filter(Comprador.username == request.json['username']).first()
+  else:
+    user = session.query(Vendedor).filter(Vendedor.username == request.json['username']).first()
+  if user and check_password_hash(user.contrasenia, request.json['password']):
+    token = jwt.encode({'sub': user.username}, current_app.config['SECRET_KEY'])
+    return jsonify({'token' : token.decode('UTF-8'), 'es_comprador': request.json['es_comprador']})
+  else:
+    return jsonify(dict(
+      mensaje='usuario o contraseña incorrectos'
+    )), 401
 
 @bp.route('/logout', methods=['POST'])
 def cerrar_sesion():
