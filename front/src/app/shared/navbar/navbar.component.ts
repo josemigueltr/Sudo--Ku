@@ -26,12 +26,10 @@ export class NavbarComponent{
   }
 
   cerrarSesion() {
-    // TODO: vista: cerrar sesión
+    localStorage.clear()
+    this.isAuthenticated = false
+    this.router.navigate(['/auth/login']);
 
-    // NOTA: despues de cerrar sesion, cambiar esta variable
-    // a false para que el navbar no muestre de nuevo el boton
-    // de Cerrar sesion
-    // this.isAuthenticated = false
   }
 
 }
