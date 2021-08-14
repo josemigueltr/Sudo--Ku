@@ -18,9 +18,11 @@ from models.vendedor import Vendedor
 from utilities.usuario_utils import generar_contrasenia, envia_mail
 
 # Forms
+'''
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FloatField, TextAreaField, BooleanField
 from wtforms.validators import InputRequired, Length, ValidationError, Email
+'''
 
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -53,11 +55,13 @@ def registrarse():
     return jsonify("server: Ha ocurrido un error intenta mas tarde"), 401
   return jsonify(f"server: Exito {rol} registrado.")
 
+'''
 class LoginForm(FlaskForm):
   username = StringField(validators=[InputRequired(), Length(min=4, max=20)])
   password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)])
   es_comprador = BooleanField(validators=[InputRequired()])
   submit = SubmitField("Continuar")
+'''
 
 @bp.route('/login', methods=['POST'])
 def iniciar_sesion():

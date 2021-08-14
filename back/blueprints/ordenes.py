@@ -1,5 +1,5 @@
 # flask
-from back.blueprints.auth import login_required_comprador
+from .auth import login_required_comprador
 from flask import Blueprint,jsonify,request
 
 #models
