@@ -105,8 +105,12 @@ def editar_producto(id):
 
 @bp.route('/<id>', methods=['DELETE'])
 def eliminar_producto(id):
-  # TODO controlador: eliminar producto
-  pass
+  session = Session()
+  producto = session.query(Producto).get(id)
+  session.delete(producto)
+  session.commit()
+  return jsonify("server: Se ha eliminado el producto")
+
 
 @bp.route('/<id>/calificaciones', methods=['POST'])
 def calificar_producto(id):
