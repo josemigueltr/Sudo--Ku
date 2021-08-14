@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="login_container">
+    <h1>Iniciar sesión</h1>
+    <form (submit)="iniciarSesion()">
+        <div class="mb-3">
+            <label for="username" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" id="username" placeholder="Nombre de usuario"
+                name="username" [(ngModel)]="username">
+        </div>
+        <div class="mb-3">
+            <label for="passrword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="passrword" placeholder="**********"
+                name="password" [(ngModel)]="password">
+        </div>
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Iniciar sesión como</label>
+            <select id="tipo" class="form-select" aria-label="Default select example"
+                name="tipo" [(ngModel)]="tipo">
+                <option selected value="comprador">Comprador</option>
+                <option value="vendedor">Vendedor</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Ingresar
+        </button>
+        <a role="button" class="btn btn-secondary ml-3"
+            routerLink="/auth/signin">
+            Registrarse
+        </a>
+    </form>
+</div>

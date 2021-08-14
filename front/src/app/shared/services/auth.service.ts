@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Comprador } from 'src/app/shared/models';
 import { API_BASE } from '../constants';
 
@@ -8,6 +8,8 @@ import { API_BASE } from '../constants';
   providedIn: 'root'
 })
 export class AuthService {
+
+  isAuthenticated = new Subject<boolean>()
 
   constructor(
     private http: HttpClient
@@ -17,8 +19,8 @@ export class AuthService {
     return this.http.post(API_BASE + '/auth/signin', user)
   }
 
-  iniciarSesion(): Observable<any> {
-    return this.http.post('', {})
+  iniciarSesion(username: string, password: string, es_comprador: boolean): Observable<any> {
+    return this.http.post(API_BASE + '/auth/login', {username, password, es_comprador})
   }
 
   cerrarSesion(): Observable<any> {

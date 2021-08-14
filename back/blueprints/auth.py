@@ -1,7 +1,7 @@
 # flask
-from flask import Blueprint,jsonify,request,g,current_app
+from flask import Blueprint, json,jsonify,request,g,current_app
 from flask.wrappers import Response
-from werkzeug.security import  generate_password_hash
+from werkzeug.security import  generate_password_hash, check_password_hash
 
 # JWT
 import jwt
@@ -16,6 +16,13 @@ from models.vendedor import Vendedor
 
 #utilities
 from utilities.usuario_utils import generar_contrasenia, envia_mail
+
+# Forms
+'''
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, FloatField, TextAreaField, BooleanField
+from wtforms.validators import InputRequired, Length, ValidationError, Email
+'''
 
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -48,11 +55,29 @@ def registrarse():
     return jsonify("server: Ha ocurrido un error intenta mas tarde"), 401
   return jsonify(f"server: Exito {rol} registrado.")
 
+'''
+class LoginForm(FlaskForm):
+  username = StringField(validators=[InputRequired(), Length(min=4, max=20)])
+  password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)])
+  es_comprador = BooleanField(validators=[InputRequired()])
+  submit = SubmitField("Continuar")
+'''
 
 @bp.route('/login', methods=['POST'])
 def iniciar_sesion():
-  # TODO: iniciar sesión
-  pass
+  import pdb;
+  session = Session()
+  if request.json['es_comprador']:
+    user = session.query(Comprador).filter(Comprador.username == request.json['username']).first()
+  else:
+    user = session.query(Vendedor).filter(Vendedor.username == request.json['username']).first()
+  if user and check_password_hash(user.contrasenia, request.json['password']):
+    token = jwt.encode({'sub': user.username}, current_app.config['SECRET_KEY'])
+    return jsonify({'token' : token.decode('UTF-8'), 'es_comprador': request.json['es_comprador']})
+  else:
+    return jsonify(dict(
+      mensaje='usuario o contraseña incorrectos'
+    )), 401
 
 @bp.route('/logout', methods=['POST'])
 def cerrar_sesion():
@@ -102,7 +127,7 @@ def login_required_comprador(controlador):
   '''
   @wraps(controlador)
   def nuevo_controlador(**kwargs):
-    if not ( g.user  and g.user.es_comprador):
+    if not (g.user and g.user['es_comprador']):
       return jsonify({'mensaje': 'usuario no autorizado'}), 401
     return controlador(**kwargs)
   return nuevo_controlador
@@ -117,7 +142,7 @@ def login_required_vendedor(controlador):
   '''
   @wraps(controlador)
   def nuevo_controlador(**kwargs):
-    if not g.user  or  g.user.es_comprador:
+    if not g.user or g.user['es_comprador']:
 
       return jsonify({'mensaje': 'usuario no autorizado'}), 401
     return controlador(**kwargs)
