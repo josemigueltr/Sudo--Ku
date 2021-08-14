@@ -123,7 +123,7 @@ def login_required_comprador(controlador):
   '''
   @wraps(controlador)
   def nuevo_controlador(**kwargs):
-    if not ( g.user  and g.user.es_comprador):
+    if not (g.user and g.user['es_comprador']):
       return jsonify({'mensaje': 'usuario no autorizado'}), 401
     return controlador(**kwargs)
   return nuevo_controlador
@@ -138,7 +138,7 @@ def login_required_vendedor(controlador):
   '''
   @wraps(controlador)
   def nuevo_controlador(**kwargs):
-    if not g.user  or  g.user.es_comprador:
+    if not g.user or g.user['es_comprador']:
 
       return jsonify({'mensaje': 'usuario no autorizado'}), 401
     return controlador(**kwargs)

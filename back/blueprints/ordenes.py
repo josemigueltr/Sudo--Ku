@@ -1,4 +1,5 @@
 # flask
+from back.blueprints.auth import login_required_comprador
 from flask import Blueprint,jsonify,request
 
 #models
@@ -15,6 +16,7 @@ from utilities.usuario_utils import envia_mail
 bp = Blueprint('ordenes', __name__, url_prefix='/ordenes')
 
 @bp.route('/', methods=['POST'])
+@login_required_comprador
 def comprar_producto():	
   session=Session()
   productos = request.json['productos']

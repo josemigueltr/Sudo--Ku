@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Comprador } from 'src/app/shared/models';
 import { API_BASE } from '../constants';
 
@@ -8,6 +8,8 @@ import { API_BASE } from '../constants';
   providedIn: 'root'
 })
 export class AuthService {
+
+  isAuthenticated = new Subject<boolean>()
 
   constructor(
     private http: HttpClient

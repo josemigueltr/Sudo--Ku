@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.loading = false
         localStorage.setItem("token", respuesta.token)
         localStorage.setItem("es_comprador", respuesta.es_comprador)
+        this.servicio.isAuthenticated.next(true)
         if (respuesta.es_comprador)
           this.router.navigate(['/'])
         else
