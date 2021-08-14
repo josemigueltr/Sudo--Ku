@@ -9,7 +9,7 @@ import { Producto } from 'src/app/shared/models';
 export class CardProductoComponent {
 
   // inputs
-  @Input() producto: Producto | undefined
+  @Input() producto!: Producto
 
   constructor() { }
 
