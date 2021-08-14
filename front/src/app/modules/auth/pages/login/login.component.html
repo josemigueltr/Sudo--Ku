@@ -1,1 +1,12 @@
-<p>login works!</p>
+<div class="login_container">
+    <h1>Iniciar sesión</h1>
+    <form action="" method="post">
+        {{form.hidden_tag()}}
+        <h5>Nombre de usuario</h5>
+        {{form.username(class="inpt")}}
+        <h5>Contraseña</h5>
+        {{form.password(class="inpt")}}
+        {{form.submit(class="login_signInButton")}}
+        <input class="login_signInButton">
+    </form>
+</div>
