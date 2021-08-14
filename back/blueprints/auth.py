@@ -93,15 +93,32 @@ def load_user():
       )
       g.user = user_dict
 
-def login_required(controlador):
+
+
+def login_required_comprador(controlador):
   '''
   Decorador que devuelve un error 401 Unauthorized
   si es que no se pudo obtener la informacion del usuario
-  en la variable g. Se ejecuta antes del controlador con este decorador
+  en la variable g y si el usuario no es comprador. Se ejecuta antes del controlador con este decorador
   '''
   @wraps(controlador)
   def nuevo_controlador(**kwargs):
-    if g.user is None:
-      return jsonify({'mensaje': 'usuario no autorizado'})
+    if not ( g.user  and g.user.es_comprador):
+      return jsonify({'mensaje': 'usuario no autorizado'}), 401
+    return controlador(**kwargs)
+  return nuevo_controlador
+
+
+
+def login_required_vendedor(controlador):
+  '''
+  Decorador que devuelve un error 401 Unauthorized
+  si es que no se pudo obtener la informacion del usuario
+  en la variable g y el usuario no es vendedor. Se ejecuta antes del controlador con este decorador
+  '''
+  @wraps(controlador)
+  def nuevo_controlador(**kwargs):
+    if not g.user  or  g.user.es_comprador:
+      return jsonify({'mensaje': 'usuario no autorizado'}), 401
     return controlador(**kwargs)
   return nuevo_controlador
