@@ -40,7 +40,7 @@ export class ProductosService {
     data.append('precio', producto.precio.toFixed(2))
     data.append('stock', producto.stock.toString())
     if (foto) data.append('foto', foto)
-    
+
     return this.http.put<Producto>(`${API_BASE}/productos/${producto.id_producto}`, data)
   }
 
@@ -51,4 +51,10 @@ export class ProductosService {
   calificarProducto(): Observable<any> {
     return this.http.post('', {})
   }
+
+
+  consultarListaProductosDeVendedor(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(API_BASE + '/productos/productos-vendedor')
+  }
+
 }
