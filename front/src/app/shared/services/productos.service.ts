@@ -39,7 +39,10 @@ export class ProductosService {
     data.append('descripcion', producto.descripcion)
     data.append('precio', producto.precio.toFixed(2))
     data.append('stock', producto.stock.toString())
-    if (foto) data.append('foto', foto)
+    if (foto) {
+      data.append('foto', foto)
+      console.log('si hay foto')
+    }
 
     return this.http.put<Producto>(`${API_BASE}/productos/${producto.id_producto}`, data)
   }

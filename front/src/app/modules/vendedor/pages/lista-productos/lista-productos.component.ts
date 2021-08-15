@@ -17,28 +17,25 @@ export class ListaProductosComponent implements AfterViewInit {
   modalEditarProducto: any;
   modalAgregarProducto: any;
   productos: Producto[] = [];
+  loading = false
 
   headElements = ['#', 'Nombre', 'Precio', 'Calificacion', 'Stock', 'Action'];
 
-  productoSeleccionado: Producto | undefined = {
-    id_producto: 1,
-    calificacion: 0,
-    descripcion: "¡COMIENZA EL JUEGO! El gabinete Blade 2101 está pensado para competir en el mercado de los gabinetes de entrada su principal atractivo es el precio, este Gabinete te permite un buen manejo de cables, flujo de aire y espacio para tarjetas de video de tamaño grande.",
-    foto: "https://ebarrotes.s3.us-west-1.amazonaws.com/assets/gabinete1.webp",
-    nombre: "Gabinete Yeyian Blad",
-    precio: 819.0,
-    stock: 10,
-    username: "vendedor1"
-  }
+  productoSeleccionado: Producto | undefined
 
   constructor(
     private servicioProductos: ProductosService
   ){}
 
   ngOnInit(): void {
+    this.loading = true
     this.servicioProductos.consultarListaProductosDeVendedor().subscribe(
-      productos => this.productos = productos,
+      productos => {
+        this.loading = false
+        this.productos = productos
+      },
       error =>{
+        this.loading = false
         console.error(error);
         console.log(this.productos);
         this.productos = []
@@ -62,10 +59,18 @@ export class ListaProductosComponent implements AfterViewInit {
     this.modalAgregarProducto.show()
   }
 
-  editarProducto(id:any) {
+  editarProducto(producto: Producto) {
     // TODO: pasar producto al componente de editar-producto
-    this.productoSeleccionado = this.productos.filter( (e) => {return e.id_producto == id} )[0] ;
+    this.productoSeleccionado = producto
     this.modalEditarProducto.show()
+  }
+
+  productoEditado(producto: any) {
+    console.log('huevos')
+    this.productos = this.productos.map(p => 
+      p.id_producto === producto.id_producto ? producto : p  
+    )
+    console.log(this.productos)
   }
 
   eliminarproducto(id:any){
