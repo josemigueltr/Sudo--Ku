@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto, Opinion} from 'src/app/shared/models';
 import { ProductosService } from 'src/app/shared/services/productos.service';
@@ -10,11 +10,18 @@ import Swal from 'sweetalert2';
   templateUrl: './informacion-producto.component.html',
   styleUrls: ['./informacion-producto.component.scss']
 })
-export class InformacionProductoComponent implements OnInit {
+export class InformacionProductoComponent {
  
   producto: Producto | undefined
   opiniones: Opinion[] | undefined
   loading = false
+
+  // input
+  @Input()
+  set id_producto(id_producto: number | undefined) {
+    if (id_producto)
+      this.loadProducto(id_producto)
+  }
   
   constructor(
       private servicioProductos: ProductosService,
@@ -22,9 +29,7 @@ export class InformacionProductoComponent implements OnInit {
       private carro: CartService
   ) { }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-    const id = params.get('id')?.replace(/_/g, ' ') || ''
+  loadProducto(id: number) {
     this.loading = true
     this.servicioProductos.verInformacionProducto(id).subscribe(
       data => {
@@ -43,8 +48,6 @@ export class InformacionProductoComponent implements OnInit {
         this.loading = false
       }
     )
-    })
-
   }
 
   addCarro(): void {

@@ -25,7 +25,7 @@ export class ProductosService {
     return this.http.get<Producto[]>(`${API_BASE}/productos/search/${busqueda}`)
   }
 
-  verInformacionProducto(id: string): Observable<ProductoOpinion> {
+  verInformacionProducto(id: number): Observable<ProductoOpinion> {
     return this.http.get<ProductoOpinion>(`${API_BASE}/productos/${id}`)
   }
 
