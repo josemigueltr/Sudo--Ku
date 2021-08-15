@@ -5,6 +5,7 @@ import { CarritoComponent } from './pages/carrito/carrito.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import { InformacionProductoComponent } from './pages/informacion-producto/informacion-producto.component';
+import { MasVendidosComponent } from "./components/mas-vendidos/mas-vendidos.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
     component: CatalogoComponent
   },{
     path: 'producto/:id',
-    component: InformacionProductoComponent
+    component: CatalogoComponent
   },{
     path: 'carrito',
     component: CarritoComponent
@@ -25,7 +26,11 @@ const routes: Routes = [
   },{
     path: 'busqueda/:busqueda',
     component: BusquedaComponent
+  }, {
+    path: 'mas-vendidos',
+    component: MasVendidosComponent
   }
+
 ];
 
 @NgModule({

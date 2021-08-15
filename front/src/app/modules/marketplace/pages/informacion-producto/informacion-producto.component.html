@@ -1,1 +1,78 @@
-<p>informacion-producto works!</p>
+<!-- Modal -->
+<div class="modal fade" id="modal-informacion-producto" tabindex="-1" aria-labelledby="modal-informacion-producto-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="nombre_prd">
+                    <h4>{{loading ? 'Cargando...' : producto?.nombre || "Este producto no existe"}}</h4>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center" *ngIf="loading">
+                    <div 
+                        class="spinner-border text-warning" 
+                        style="width: 3rem; height: 3rem;" 
+                        role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div id="contenedor-producto" class="container-fluid" *ngIf="!loading">
+                    <div id="encabezado-prd" class="row">
+                        <div id="img-prd" class="col-8">
+                            <img [src]="producto?.foto || 'assets/placeholder.png'" class="img-fluid" alt="imagen del producto">
+                        </div>
+                        <div id="info-gral-prd" class="col-4">
+                            <div id="precio_prd">
+                                <h3>$ {{producto?.precio || 0}}</h3>
+                            </div>
+                            <div id="disponibilidad_prd">
+                                <h5>Disponibles: 
+                                    <span id="disponibles"> {{producto?.stock || 0}}</span>
+                                </h5>
+                            </div>
+                            <div id="agregar_carrito" *ngIf=producto>
+                                <button id="btn_agregar_carro" class="btn btn-primary" (click) = "addCarro()">Agregar al carrito</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="descripcion-box-prd">
+                        <h3>Descripcion</h3>
+                        <div id="descripcion_prd">
+                            <p>{{producto?.descripcion}} </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="opiniones-box-prd">
+                        <h3>Opiniones</h3>
+                        <div id="calificacion_gral_producto">
+                            <h4>Los usuarios califican este producto con: 
+                            <img 
+                             *ngFor="let star of counter(producto?.calificacion || 0)"
+                             class="star"
+                             src="assets/star-filled.svg" 
+                             alt="estrella con relleno"/>
+                            </h4>
+                        </div>
+                        <div *ngIf="!opiniones">No hay opiniones disponibles sobre el producto </div>
+                        <div class="opinion_usuario_box" *ngFor="let opinion of opiniones">
+                            <div class="nom_usuario"> {{opinion?.username}}
+                            <span class="calif_usuario">
+                                <img 
+                                    *ngFor="let star of counter(opinion?.valoracion || 0)"
+                                    class="star"
+                                    src="assets/star-filled.svg" 
+                                    alt="estrella con relleno"/>
+                            </span>
+                            </div>
+                            <div class="opinion_contenido">
+                                <p> {{opinion?.contenido}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

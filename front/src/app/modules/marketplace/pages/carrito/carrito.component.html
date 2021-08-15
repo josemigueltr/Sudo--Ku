@@ -1,1 +1,66 @@
-<p>carrito works!</p>
+<h1>Carrito De compras</h1>
+<div *ngIf="listProducts.length !=0" class="container">
+    
+  
+	<div class="container">
+        <div class="card-table">
+            <div class="cart-product">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+							<th></th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Imagen</th>
+                            <th>Descripcion</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of listProducts; let i = index">
+                            <td>
+                                <button (click)="removeItem(item)" class="btn btn-danger">☓</button>
+                            </td>
+							<td>{{item.producto.id_producto}}</td>
+                            <td>{{item.producto.nombre}}</td>
+                            <td><img style="width: 120px;" src="{{item.producto.foto}}" alt=""></td>
+                            <td style="width: 25%;">{{item.producto.descripcion}}</td>
+                            <th style="width: 12%;">${{item.producto.precio}}</th>
+                            <td style="width: 12%;">Cantidad:<input type="number" [(ngModel)]="item.cantidad" [value]="item.cantidad"  min="1" [max]="item.producto.stock"   (ngModelChange)="stock($event)"></td>
+                            <td style="width: 12%;">${{totalProduct(item)}}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td colspan="7"></td>
+                            <td><strong>Total : ${{getTotal()}}</strong></td>
+                        </tr>
+						<tr>
+                            <td colspan="1"></td>
+                            <td><button  routerLink="/catalogo" routerLinkActive="active" class="btn btn-primary">Seguir comprando</button></td>
+                            <td></td>
+                            <td><button  routerLink="/compra" routerLinkActive="active" class="btn btn-success">Proceder pago</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+			
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="listProducts.length ==0" class="container pt-5">
+   
+		<div class="card">
+      
+			<div class="text-center">
+				
+				<h4>Tu carrito de compras esta vacio!</h4>
+				<h6>Agrega mas productos</h6>
+				<button routerLink="/catalogo" routerLinkActive="active" class="btn btn-primary">Comprar ahora </button>
+            </div>
+		</div>
+
+</div>

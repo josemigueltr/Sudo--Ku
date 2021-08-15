@@ -11,6 +11,7 @@ import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 import { CardProductoComponent } from './components/card-producto/card-producto.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     MarketplaceRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MarketplaceModule { }
