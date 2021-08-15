@@ -17,6 +17,7 @@ export class CatalogoComponent implements OnInit, AfterViewInit {
   // properties
   productos: Producto[] | undefined
   modalInformacionProducto: any
+  idProductoSeleccionado: number | undefined
 
   constructor(
     private servicioProductos: ProductosService,
@@ -37,8 +38,6 @@ export class CatalogoComponent implements OnInit, AfterViewInit {
         })
       }
     )
-
-    
   }
 
   ngAfterViewInit() {
@@ -55,5 +54,10 @@ export class CatalogoComponent implements OnInit, AfterViewInit {
         this.modalInformacionProducto.show()
       }
     })
+  }
+
+  mostrarProducto(producto: Producto) {
+    this.idProductoSeleccionado = producto.id_producto;
+    this.modalInformacionProducto.show()
   }
 }

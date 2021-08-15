@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlreadyLoggedGuard } from './shared/guards/already-logged.guard';
-import { AuthGuard } from './shared/guards/auth.guard';
 import { CompradorGuard } from './shared/guards/comprador.guard';
 import { VendedorGuard } from './shared/guards/vendedor.guard';
 

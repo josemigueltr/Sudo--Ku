@@ -4,7 +4,7 @@ import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { CompraComponent } from './pages/compra/compra.component';
-import { InformacionProductoComponent } from './pages/informacion-producto/informacion-producto.component';
+import { InformacionProductoComponent } from './components/informacion-producto/informacion-producto.component';
 import { MasVendidosComponent } from "./components/mas-vendidos/mas-vendidos.component";
 
 const routes: Routes = [
@@ -13,9 +13,6 @@ const routes: Routes = [
     redirectTo: 'catalogo'
   },{
     path: 'catalogo',
-    component: CatalogoComponent
-  },{
-    path: 'producto/:id',
     component: CatalogoComponent
   },{
     path: 'carrito',
