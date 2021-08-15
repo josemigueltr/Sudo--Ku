@@ -133,3 +133,11 @@ def calificar_producto(id):
       return render_template('rate_product.html', form=form) # TODO: mandar json.
   '''
   pass
+
+
+@bp.route('/productos-vendedor', methods=['GET'])
+def consultar_lista_productos_de_vendedor():
+  session = Session()
+  username = g.user['username']
+  productos = session.query(Producto).where(Producto.username == username).all()
+  return jsonify([p.to_dict() for p in productos])
