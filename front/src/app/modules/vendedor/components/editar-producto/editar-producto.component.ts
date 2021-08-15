@@ -16,25 +16,36 @@ export class EditarProductoComponent implements OnInit, AfterViewInit {
   // TODO vista: editar producto
 
   // input
-  @Input() producto: Producto | undefined
+  productoValue: Producto | undefined
+  @Input()
+  set producto(producto: Producto | undefined) {
+    this.productoValue = producto
+    this.form.patchValue({
+      nombre: this.producto?.nombre,
+      descripcion: this.producto?.descripcion,
+      precio: this.producto?.precio,
+      stock: this.producto?.stock
+    })
+  }
+  get producto(): Producto | undefined {
+    return this.productoValue
+  }
 
   // output
-  @Output() productoChange = new EventEmitter<Producto>();
+  @Output() updated = new EventEmitter<Producto>();
 
   // view childs
   @ViewChild('preview') preview!: ElementRef;
 
   // properties
-  form!: FormGroup
+  form: FormGroup
   foto: File | undefined
   modal: any
   loading = false
 
   constructor(
     private servicioProductos: ProductosService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.form = new FormGroup({
       nombre: new FormControl(this.producto?.nombre, [
         Validators.required,
@@ -51,6 +62,10 @@ export class EditarProductoComponent implements OnInit, AfterViewInit {
       ]),
       foto: new FormControl(this.foto)
     })
+  }
+
+  ngOnInit(): void {
+    
   }
 
   ngAfterViewInit() {
@@ -71,6 +86,7 @@ export class EditarProductoComponent implements OnInit, AfterViewInit {
     const target = event.target as HTMLInputElement
     const file = target.files?.[0]
     if (!file) return
+    this.foto = file
     const reader = new FileReader();
     reader.onload = () => {
       this.preview.nativeElement.src = reader.result as string;
@@ -94,14 +110,13 @@ export class EditarProductoComponent implements OnInit, AfterViewInit {
       this.foto
     ).subscribe(
       producto => {
-        console.log(producto);
         this.loading = false
         Toast.fire({
           title: 'Tus cambios han sido guardados',
           icon: 'success'
         })
+        this.updated.emit(producto)
         this.modal.hide()
-        this.productoChange.emit(producto)
       },
       error => {
         this.loading = false

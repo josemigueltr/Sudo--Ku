@@ -1,5 +1,5 @@
 # flask
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, g
 from sqlalchemy import func
 from flask.wrappers import Response
 
@@ -136,7 +136,6 @@ def calificar_producto(id):
 @bp.route('/productos-vendedor', methods=['GET'])
 def consultar_lista_productos_de_vendedor():
   session = Session()
-  # username = g.user['username']
-  username = 'vendedor1'
+  username = g.user['username']
   productos = session.query(Producto).where(Producto.username == username).all()
   return jsonify([p.to_dict() for p in productos])
