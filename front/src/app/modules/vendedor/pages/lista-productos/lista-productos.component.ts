@@ -14,7 +14,8 @@ declare const bootstrap: any;
 export class ListaProductosComponent implements AfterViewInit {
   // TODO vista: lista de productos de vendedor
 
-  modalEditarProducto: any
+  modalEditarProducto: any;
+  modalAgregarProducto: any;
   productos: Producto[] = [];
 
   headElements = ['#', 'Nombre', 'Precio', 'Calificacion', 'Stock', 'Action'];
@@ -50,16 +51,21 @@ export class ListaProductosComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.modalEditarProducto = bootstrap.Modal.getOrCreateInstance(
-      document.querySelector('#modal-editar-producto')
-    )
+     this.modalEditarProducto = bootstrap.Modal.getOrCreateInstance(
+     document.querySelector('#modal-editar-producto')
+     )
+  }
+
+
+  agregarProducto() {
+    // TODO: pasar producto al agregar de editar-producto
+    this.modalAgregarProducto.show()
   }
 
   editarProducto(id:any) {
     // TODO: pasar producto al componente de editar-producto
     this.productoSeleccionado = this.productos.filter( (e) => {return e.id_producto == id} )[0] ;
     this.modalEditarProducto.show()
-    this.reload_list();
   }
 
   eliminarproducto(id:any){
@@ -104,15 +110,5 @@ export class ListaProductosComponent implements AfterViewInit {
       }
     })}
 
-
-  reload_list(): void {
-    this.servicioProductos.consultarListaProductosDeVendedor().subscribe(
-      productos => {
-        this.productos = productos
-        this.productos = [...this.productos]
-      },
-      error =>{
-      })
-  }
 
   }
