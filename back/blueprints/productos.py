@@ -84,7 +84,6 @@ def agregar_producto(username):
 
 
 @bp.route('/<id>', methods=['PUT'])
-@login_required_vendedor
 def editar_producto(id):
   session = Session()
   producto = session.query(Producto).get(id)
@@ -108,7 +107,6 @@ def editar_producto(id):
   return jsonify(producto.to_dict()), 200
 
 @bp.route('/<id>', methods=['DELETE'])
-@login_required_vendedor
 def eliminar_producto(id):
   session = Session()
   producto = session.query(Producto).get(id)
@@ -133,3 +131,12 @@ def calificar_producto(id):
       return render_template('rate_product.html', form=form) # TODO: mandar json.
   '''
   pass
+
+
+@bp.route('/productos-vendedor', methods=['GET'])
+def consultar_lista_productos_de_vendedor():
+  session = Session()
+  # username = g.user['username']
+  username = 'vendedor1'
+  productos = session.query(Producto).where(Producto.username == username).all()
+  return jsonify([p.to_dict() for p in productos])

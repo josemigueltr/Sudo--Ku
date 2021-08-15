@@ -12,8 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },{
     path: 'vendedor',
-    loadChildren: () => import('./modules/vendedor/vendedor.module').then(m => m.VendedorModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./modules/vendedor/vendedor.module').then(m => m.VendedorModule)
   }
 ];
 
