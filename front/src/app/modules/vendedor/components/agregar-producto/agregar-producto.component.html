@@ -1,2 +1,103 @@
 <div class="modal fade" id="modal-agregar-producto" tabindex="-1" aria-labelledby="modal-agregar-producto-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <form class="modal-content"
+          [formGroup]="form"
+          (submit)="agregarProducto()">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-agregar-producto-label">Agregar producto</h5>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombre" name="nombre"
+                formControlName="nombre"
+                [ngClass]="{
+                  'is-invalid': nombre.invalid && (nombre.dirty || nombre.touched),
+                  'is-valid': !nombre.invalid && (nombre.dirty || nombre.touched)
+                }"/>
+              {{nombre.value}}
+              <div class="invalid-feedback">
+                <p *ngIf="nombre.errors?.required">Debes ingresar un nombre</p>
+                <p *ngIf="nombre.errors?.maxlength">No debes pasar de los 200 caracteres</p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripcion</label>
+              <textarea
+                class="form-control"
+                id="descripcion"
+                name="descripcion"
+                formControlName="descripcion"
+                [ngClass]="{
+                  'is-invalid': descripcion.invalid && (descripcion.dirty || descripcion.touched),
+                  'is-valid': !descripcion.invalid && (descripcion.dirty || descripcion.touched)
+                }"></textarea>
+              <div class="invalid-feedback">
+                <p *ngIf="descripcion.errors?.required">Debes ingresar una descripcion</p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="precio" class="form-label">Precio</label>
+              <input
+                type="number"
+                class="form-control"
+                id="precio"
+                name="precio"
+                formControlName="precio"
+                [ngClass]="{
+                  'is-invalid': precio.invalid && (precio.dirty || precio.touched),
+                  'is-valid': !precio.invalid && (precio.dirty || precio.touched)
+                }"/>
+              <div class="invalid-feedback">
+                <p *ngIf="precio.errors?.required">Debes ingresar un precio</p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="stock" class="form-label">Stock</label>
+              <input
+                type="number"
+                class="form-control"
+                id="stock"
+                name="stock"
+                formControlName="stock"
+                [ngClass]="{
+                  'is-invalid': stock.invalid && (stock.dirty || stock.touched),
+                  'is-valid': !stock.invalid && (stock.dirty || stock.touched)
+                }"/>
+              <div class="invalid-feedback">
+                <p *ngIf="stock.errors?.required">Debes ingresar un numero entero</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="foto" class="form-label">Foto</label>
+              <img #preview [src]=" '/assets/placeholder.png'" alt="foto" class="img-foto mb-2">
+              <input
+                class="form-control"
+                type="file"
+                id="foto"
+                name="foto"
+                formControlName="foto"
+                (change)="cargaImagen($event)"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Agregar producto
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

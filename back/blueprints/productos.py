@@ -25,9 +25,11 @@ bp = Blueprint('productos', __name__, url_prefix='/productos')
 @login_required_comprador
 def consultar_productos_mas_vendidos():
   session = Session()
+  cantidad = 100
   query = session.query(Producto).join(Compra_producto, Producto.id_producto == Compra_producto.id_producto).group_by(Compra_producto.id_producto).order_by(func.sum(Compra_producto.cantidad).desc() )
-  result = query.all()
+  result = query.limit(cantidad).all()
   return jsonify([producto.to_dict() for  producto in result])
+
 
 @bp.route('/', methods=['GET'])
 @login_required_comprador
@@ -57,19 +59,21 @@ def ver_informacion_producto(id):
 
   return jsonify(respuesta)
 
-@bp.route('/<username>', methods=['POST'])
+@bp.route('/agregar-producto', methods=['POST'])
 @login_required_vendedor
-def agregar_producto(username):
+def agregar_producto():
   session = Session()
   params = request.form
+  username = g.user['username']
 
+  calificacion = 0
   nombre = params['nombre']
-  descripcion = params['descripcion']
+  descripcion= params['descripcion']
   precio =  params['precio']
-  calificacion = params['calificacion']
   stock = params['stock']
 
-  producto = Producto(username, nombre,descripcion, precio, calificacion, stock, '')
+  producto = Producto(username, nombre,descripcion, precio, 0, stock, '')
+
   if 'foto' in request.files:
     try:
       producto.foto = upload_file(request.files['foto'])
@@ -84,6 +88,7 @@ def agregar_producto(username):
 
 
 @bp.route('/<id>', methods=['PUT'])
+@login_required_vendedor
 def editar_producto(id):
   session = Session()
   producto = session.query(Producto).get(id)
@@ -107,6 +112,7 @@ def editar_producto(id):
   return jsonify(producto.to_dict()), 200
 
 @bp.route('/<id>', methods=['DELETE'])
+@login_required_vendedor
 def eliminar_producto(id):
   session = Session()
   producto = session.query(Producto).get(id)
@@ -134,6 +140,7 @@ def calificar_producto(id):
 
 
 @bp.route('/productos-vendedor', methods=['GET'])
+@login_required_vendedor
 def consultar_lista_productos_de_vendedor():
   session = Session()
   username = g.user['username']

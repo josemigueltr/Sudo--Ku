@@ -51,12 +51,20 @@ export class ListaProductosComponent implements AfterViewInit {
      this.modalEditarProducto = bootstrap.Modal.getOrCreateInstance(
      document.querySelector('#modal-editar-producto')
      )
+    this.modalAgregarProducto = bootstrap.Modal.getOrCreateInstance(
+      document.querySelector('#modal-agregar-producto')
+    )
   }
 
 
   agregarProducto() {
     // TODO: pasar producto al agregar de editar-producto
     this.modalAgregarProducto.show()
+  }
+
+  productoAgregado(producto: any) {
+    this.productos.push(producto);
+    this.productos = [...this.productos]
   }
 
   editarProducto(producto: Producto) {
@@ -67,8 +75,8 @@ export class ListaProductosComponent implements AfterViewInit {
 
   productoEditado(producto: any) {
     console.log('huevos')
-    this.productos = this.productos.map(p => 
-      p.id_producto === producto.id_producto ? producto : p  
+    this.productos = this.productos.map(p =>
+      p.id_producto === producto.id_producto ? producto : p
     )
     console.log(this.productos)
   }

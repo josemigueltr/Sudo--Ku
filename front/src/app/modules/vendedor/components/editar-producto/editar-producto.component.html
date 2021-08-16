@@ -6,15 +6,16 @@
       <div class="modal-header">
         <h5 class="modal-title" id="modal-editar-producto-label">{{producto?.nombre}}</h5>
       </div>
+
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre</label>
-              <input 
-                type="text" 
-                class="form-control" 
-                id="nombre" name="nombre" 
+              <input
+                type="text"
+                class="form-control"
+                id="nombre" name="nombre"
                 formControlName="nombre"
                 [ngClass]="{
                   'is-invalid': nombre.invalid && (nombre.dirty || nombre.touched),
@@ -28,10 +29,10 @@
             </div>
             <div class="mb-3">
               <label for="descripcion" class="form-label">Descripcion</label>
-              <textarea 
-                class="form-control" 
-                id="descripcion" 
-                name="descripcion" 
+              <textarea
+                class="form-control"
+                id="descripcion"
+                name="descripcion"
                 formControlName="descripcion"
                 [ngClass]="{
                   'is-invalid': descripcion.invalid && (descripcion.dirty || descripcion.touched),
@@ -43,11 +44,11 @@
             </div>
             <div class="mb-3">
               <label for="precio" class="form-label">Precio</label>
-              <input 
-                type="number" 
-                class="form-control" 
-                id="precio" 
-                name="precio" 
+              <input
+                type="number"
+                class="form-control"
+                id="precio"
+                name="precio"
                 formControlName="precio"
                 [ngClass]="{
                   'is-invalid': precio.invalid && (precio.dirty || precio.touched),
@@ -59,11 +60,11 @@
             </div>
             <div class="mb-3">
               <label for="stock" class="form-label">Stock</label>
-              <input 
-                type="number" 
-                class="form-control" 
-                id="stock" 
-                name="stock" 
+              <input
+                type="number"
+                class="form-control"
+                id="stock"
+                name="stock"
                 formControlName="stock"
                 [ngClass]="{
                   'is-invalid': stock.invalid && (stock.dirty || stock.touched),
@@ -78,17 +79,18 @@
             <div class="mb-3">
               <label for="foto" class="form-label">Foto</label>
               <img #preview [src]="producto?.foto || '/assets/placeholder.png'" alt="foto" class="img-foto mb-2">
-              <input 
-                class="form-control" 
-                type="file" 
-                id="foto" 
-                name="foto" 
+              <input
+                class="form-control"
+                type="file"
+                id="foto"
+                name="foto"
                 formControlName="foto"
                 (change)="cargaImagen($event)"/>
             </div>
           </div>
         </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-primary" [disabled]="loading">
