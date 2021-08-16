@@ -63,9 +63,9 @@ def iniciar_sesion():
   # Busca al usuario en la BBDD.
   user = None
   if es_comprador:
-    user = session.query(Comprador).get(username)
+    user = session.query(Comprador).filter(username).first()
   else:
-    user = session.query(Vendedor).get(username)
+    user = session.query(Vendedor).filter(username).first()
   
   # Si el usuario está en la BBDD, verifica los hashes de las contraseñas.
   if user and check_password_hash(user.contrasenia, password):
