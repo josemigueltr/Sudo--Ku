@@ -46,7 +46,7 @@
                   <small *ngIf="propietario?.invalid && propietario?.touched" class="text-danger">Este campo es requerido</small> 
                  </div>      
                  <div class="form-group col-5">
-                  <label class="col-form-label">Numero de tarjeta:</label>
+                  <label class="col-form-label">Numero de tarjeta(16 nums):</label>
                   <input formControlName="numeroDeTarjeta" type="text" class="form-control"  >
                   <small *ngIf="numeroDeTarjeta?.invalid && numeroDeTarjeta?.touched" class="text-danger">Ingresa un numero de tarjeta valido</small> 
                  </div>      
@@ -75,7 +75,7 @@
              
               <div class="text-end">
 
-                <button [disabled]="exform.invalid  " class="continuar  float-left btn btn-primary">
+                <button [disabled]="exform.invalid || loading " class="continuar  float-left btn btn-primary">
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                   Finalizar Compra
                 </button>

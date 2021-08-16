@@ -42,7 +42,7 @@ export class CompraComponent implements OnInit {
       'anio' : new FormControl('', [Validators.required]),
       'cvv' : new FormControl('', [
         Validators.required,Validators.maxLength(3), 
-        Validators.minLength(16),
+        Validators.minLength(3),
         Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
     });    
   }
