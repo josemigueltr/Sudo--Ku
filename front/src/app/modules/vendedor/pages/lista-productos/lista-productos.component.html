@@ -51,6 +51,8 @@
   <button class="btn btn-primary" type="button" (click)="agregarProducto()" >Agregar producto</button>
 </div>
 
+<app-agregar-producto></app-agregar-producto>
+
 <app-editar-producto
   [producto]="productoSeleccionado" (updated)="productoEditado($event)">
 </app-editar-producto>

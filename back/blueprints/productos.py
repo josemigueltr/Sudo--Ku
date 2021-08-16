@@ -57,19 +57,23 @@ def ver_informacion_producto(id):
 
   return jsonify(respuesta)
 
-@bp.route('/<username>', methods=['POST'])
-@login_required_vendedor
-def agregar_producto(username):
+@bp.route('/agregar-producto', methods=['POST'])
+def agregar_producto():
   session = Session()
   params = request.form
 
+  username = 'vendedor1'
+
   nombre = params['nombre']
-  descripcion = params['descripcion']
+  descripcion= params['descripcion']
   precio =  params['precio']
   calificacion = params['calificacion']
   stock = params['stock']
 
   producto = Producto(username, nombre,descripcion, precio, calificacion, stock, '')
+  # producto = Producto(username, 'sad','sdsd', '12', '1', '2', '')
+
+  print(producto)
   if 'foto' in request.files:
     try:
       producto.foto = upload_file(request.files['foto'])

@@ -29,10 +29,24 @@ export class ProductosService {
     return this.http.get<ProductoOpinion>(`${API_BASE}/productos/${id}`)
   }
 
+  /**
   agregarProducto(): Observable<any> {
-    return this.http.post('', {})
-  }
+    return this.http.post(`${API_BASE}/agregar-producto`, {})
+  } */
 
+  agregarProducto(producto: Producto, foto: File | undefined): Observable<Producto> {
+    const data = new FormData();
+    data.append('nombre', producto.nombre)
+    data.append('descripcion', producto.descripcion)
+    data.append('precio', producto.precio.toFixed(2))
+    data.append('stock', producto.stock.toString())
+    if (foto) {
+      data.append('foto', foto)
+      console.log('si hay foto')
+    }
+
+    return this.http.post<Producto>(`${API_BASE}/agregar-producto`, data)
+  }
   editarProducto(producto: Producto, foto: File | undefined): Observable<Producto> {
     const data = new FormData();
     data.append('nombre', producto.nombre)
