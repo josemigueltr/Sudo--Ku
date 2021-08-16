@@ -19,6 +19,10 @@ from boto3.exceptions import S3UploadFailedError
 # utilities
 from utilities.amazon import upload_file
 
+# dates
+from datetime import date
+
+
 bp = Blueprint('productos', __name__, url_prefix='/productos')
 
 @bp.route('/mas-vendidos', methods=['GET'])
@@ -118,19 +122,41 @@ def eliminar_producto(id):
 @bp.route('/<id>/calificaciones', methods=['POST'])
 @login_required_comprador
 def calificar_producto(id):
-  '''
-  form = RatingForm()
-  if form.validate_on_submit():
-    product = Product.query.filter_by(id=id).first() # TODO: Crear sesion y obtener el Producto.
-    if product:
-      new_rating = (form.rating.data + product.rating) / 2
-      product.rating = new_rating
-      db.session.commit()
-      return redirect(url_for('store')) # TODO: Mandar json.
-    else:
-      return render_template('rate_product.html', form=form) # TODO: mandar json.
-  '''
-  pass
+  """Caso de uso para Calificar Producto.
+
+  Maneja la integración de una nueva calificación
+  y opinión para un producto dado.
+
+  Args:
+    id (int): El ID del producto a calificar.
+  """
+  session = Session()
+
+  # Producto a calificar.
+  producto = session.query(Producto).get(id)
+
+  # Obteniendo los datos ingresados en el formulario.
+  rating = request.json['rating']
+  comentario = request.json['comentario']
+
+  # Calculando la nueva calificación del producto.
+  nueva_calificacion = (rating + producto.calificacion) // 2
+
+  # Agregando la opinión.
+  username = g.user['username']
+  fecha = date.today()
+  id_producto = id
+  valoracion = rating
+  contenido = comentario
+  opinion = Opinion(username, id_producto, valoracion, contenido, fecha)
+  
+  # Actualizando la BBDD.
+  producto.calificacion = nueva_calificacion
+  session.add(opinion)
+  session.commit()
+
+  return jsonify("server: Se ha registrado la opinión"), 200  # 200: OK
+
 
 
 @bp.route('/productos-vendedor', methods=['GET'])

@@ -51,10 +51,9 @@ export class ProductosService {
     return this.http.delete(`${API_BASE}/productos/${id}`)
   }
 
-  calificarProducto(): Observable<any> {
-    return this.http.post('', {})
+  calificarProducto(content: any, id_producto: number): Observable<any> {
+    return this.http.post(`${API_BASE}/productos/${id_producto}/calificaciones`, {content})
   }
-
 
   consultarListaProductosDeVendedor(): Observable<Producto[]> {
     return this.http.get<Producto[]>(API_BASE + '/productos/productos-vendedor')

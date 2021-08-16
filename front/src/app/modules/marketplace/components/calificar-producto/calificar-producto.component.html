@@ -1,1 +1,75 @@
-<p>calificar-producto works!</p>
+<div class="container">
+    <div class="rating-wrap">
+        <h2>Califica el producto</h2>
+    
+        <div class="center">
+            <fieldset class="rating">
+                <input type="radio" id="star5" name="rating" value="5"/>
+                <label for="star5" class="full" title="Awesome"></label>
+
+                <input type="radio" id="star4.5" name="rating" value="4.5"/>
+                <label for="star4.5" class="half"></label>
+                
+                <input type="radio" id="star4" name="rating" value="4"/>
+                <label for="star4" class="full"></label>
+                
+                <input type="radio" id="star3.5" name="rating" value="3.5"/>
+                <label for="star3.5" class="half"></label>
+                
+                <input type="radio" id="star3" name="rating" value="3"/>
+                <label for="star3" class="full"></label>
+                
+                <input type="radio" id="star2.5" name="rating" value="2.5"/>
+                <label for="star2.5" class="half"></label>
+                
+                <input type="radio" id="star2" name="rating" value="2"/>
+                <label for="star2" class="full"></label>
+                
+                <input type="radio" id="star1.5" name="rating" value="1.5"/>
+                <label for="star1.5" class="half"></label>
+                
+                <input type="radio" id="star1" name="rating" value="1"/>
+                <label for="star1" class="full"></label>
+                
+                <input type="radio" id="star0.5" name="rating" value="0.5"/>
+                <label for="star0.5" class="half"></label>
+            </fieldset>
+        </div>
+
+        <h4 id="show-rating"></h4>
+
+        <form [formGroup]="exform" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <input id="rating-value" type="hidden" formControlName="rating">
+            </div>
+
+            <div class="form-group">
+                <textarea id="comentario" formControlName="comentario"></textarea>
+            </div>
+
+            <div class="text-center shadow-l enviar">
+                <button [disabled]="exform.invalid || loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Enviar Opinión
+                </button>
+            </div>
+        </form>
+    </div>	
+
+    <script>
+        let star = document.getElementsByName('rating');
+        let showValue = document.querySelector('#show-rating');
+
+        for (let i = 0; i < star.length; i++) {
+            showValue.innerHTML = "0 estrellas";
+            star[i].addEventListener('click', function() {
+                i = this.value;
+                if (i == 1)
+                    showValue.innerHTML = i + " estrella";
+                else 
+                    showValue.innerHTML = i + " estrellas";
+                document.getElementById('rating-value').value = i;
+            });
+        }
+    </script>
+</div>
