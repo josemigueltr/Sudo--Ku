@@ -62,6 +62,11 @@ export class ListaProductosComponent implements AfterViewInit {
     this.modalAgregarProducto.show()
   }
 
+  productoAgregado(producto: any) {
+    this.productos.push(producto);
+    this.productos = [...this.productos]
+  }
+
   editarProducto(producto: Producto) {
     // TODO: pasar producto al componente de editar-producto
     this.productoSeleccionado = producto

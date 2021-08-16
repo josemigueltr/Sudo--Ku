@@ -44,9 +44,9 @@ export class ProductosService {
       data.append('foto', foto)
       console.log('si hay foto')
     }
-
-    return this.http.post<Producto>(`${API_BASE}/agregar-producto`, data)
+    return this.http.post<Producto>(`${API_BASE}/productos/agregar-producto`, data)
   }
+
   editarProducto(producto: Producto, foto: File | undefined): Observable<Producto> {
     const data = new FormData();
     data.append('nombre', producto.nombre)

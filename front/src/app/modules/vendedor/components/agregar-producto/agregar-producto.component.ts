@@ -16,6 +16,7 @@ declare const bootstrap: any;
 export class AgregarProductoComponent implements OnInit {
   // TODO vista: agregar producto
 
+  @Output() updated = new EventEmitter<Producto>();
   @ViewChild('preview') preview!: ElementRef;
 
   form: FormGroup
@@ -90,6 +91,8 @@ export class AgregarProductoComponent implements OnInit {
 
 
     this.loading = true
+    console.log({...this.form.value});
+
     this.servicioProductos.agregarProducto(
       {...this.form.value } as Producto,
       this.foto
@@ -97,11 +100,14 @@ export class AgregarProductoComponent implements OnInit {
       producto => {
         this.loading = false
         Toast.fire({
-          title: 'Tus cambios han sido guardados',
+          title: 'El producto se ha registrado con éxito.',
           icon: 'success'
         })
         // this.updated.emit(producto)
-        this.modal.hide()
+        this.form.reset();
+        this.updated.emit(producto)
+        this.modal.hide();
+
       },
       error => {
         this.loading = false

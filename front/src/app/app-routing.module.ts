@@ -15,7 +15,8 @@ const routes: Routes = [
     canActivate: [AlreadyLoggedGuard]
   },{
     path: 'vendedor',
-    loadChildren: () => import('./modules/vendedor/vendedor.module').then(m => m.VendedorModule)
+    loadChildren: () => import('./modules/vendedor/vendedor.module').then(m => m.VendedorModule),
+    canActivate: [VendedorGuard]
   }
 ];
 

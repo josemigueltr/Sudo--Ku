@@ -6,18 +6,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <a class="navbar-brand" routerLink="/" routerLinkActive="active">eBarrotes</a>
-      <form 
-        class="d-flex flex-grow-1 mx-5" 
-        novalidate 
+      <form
+        class="d-flex flex-grow-1 mx-5"
+        novalidate
         (submit)="buscarProducto()">
-        <input 
+        <input
           [(ngModel)]="busqueda"
-          class="form-control flex-grow-1" 
+          class="form-control flex-grow-1"
           name="busqueda"
-          type="search" 
+          type="search"
           placeholder="Buscar"
           aria-label="Buscar">
-        <button 
+        <button
           class="btn btn-outline-success">
           Search
         </button>
