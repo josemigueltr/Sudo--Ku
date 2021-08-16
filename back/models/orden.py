@@ -13,6 +13,6 @@ class Orden(Base):
     
 
     def __init__(self,comprador,direccion):
-        self.username=comprador.username
+        self.username=comprador
         self.id_datos_envio=direccion.id_datos_envio   
         self.total=0

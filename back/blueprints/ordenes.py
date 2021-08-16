@@ -1,6 +1,6 @@
 # flask
 from .auth import login_required_comprador
-from flask import Blueprint,jsonify,request
+from flask import Blueprint,jsonify,request,g
 
 #models
 from models.conexion_bd import Session
@@ -21,17 +21,14 @@ def comprar_producto():
   session=Session()
   productos = request.json['productos']
   direccion = request.json['direccion_envio']
-  cliente=request.json['comprador']
- 
+  cliente=g.user['username']
+  
   try:
     direccion_envio=Datos_de_envio(direccion['estado'],direccion['cp'],direccion['direccion'],direccion['calles'])
     session.add(direccion_envio)
-    comprador=session.query(Comprador).get(cliente)
+    session.commit()
+    comprador=cliente
    
-    #Reviso si el comprador existe
-    if not comprador:
-      return jsonify("server: Comprador invalido"),401
-
     ordenes=Orden(comprador,direccion_envio)	
     
     for prod in productos:
@@ -53,8 +50,8 @@ def comprar_producto():
       
     
     session.add(ordenes)
-    correo=comprador.correo
-    username=comprador.username
+    correo=g.user['correo']
+    username=cliente
     total=ordenes.total
     envia_mail((correo,username,total),"compra")
     session.commit()
