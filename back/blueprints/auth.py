@@ -30,39 +30,6 @@ def iniciar_sesion():
   # Datos obtenidos del formulario.
   username = request.json['username']
   password = request.json['password']
-  rol = request.json['rol']
-
-  # Busca al usuario en la BBDD.
-  user = None
-  if (rol == 'comprador'):
-    user = session.query(Comprador).get(username)
-  elif (rol == "vendedor"):
-    user = session.query(Vendedor).get(username)
-  else:
-    return jsonify ("server: rol invalido"), 400  # 400: Bad Request.
-  
-  # Si el usuario está en la BBDD, verifica los hashes de las contraseñas.
-  if user and check_password_hash(user.contrasenia, password):
-    # Generación del token.
-    token = jwt.encode({'sub': user.username}, 
-                       current_app.config['SECRET_KEY'],
-                       algorithm="RS256")  # RSA Signature con SHA-256
-    return jsonify({'token' : token.decode('UTF-8'),
-                    'es_comprador': request.json['es_comprador']})
-
-  return jsonify(f"server: los datos son incorrectos"), 401  # 401: Unauthorized.
-
-
-@bp.route('/login', methods=['POST'])
-def iniciar_sesion():
-  """Caso de uso para inicio de sesión.
-  
-  Maneja la autenticación de un usuario en el sistema."""
-  session = Session()
-
-  # Datos obtenidos del formulario.
-  username = request.json['username']
-  password = request.json['password']
   es_comprador = request.json['es_comprador']
 
   # Busca al usuario en la BBDD.
