@@ -19,7 +19,7 @@ export class ListaProductosComponent implements AfterViewInit {
   productos: Producto[] = [];
   loading = false
 
-  headElements = ['#', 'Nombre', 'Precio', 'Calificacion', 'Stock', 'Action'];
+  headElements = ['#', 'Nombre', 'Precio', 'Stock', 'Action'];
 
   productoSeleccionado: Producto | undefined
 

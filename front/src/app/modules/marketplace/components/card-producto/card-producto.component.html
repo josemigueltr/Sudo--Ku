@@ -2,7 +2,7 @@
   <img [src]="producto.foto || 'assets/placeholder.png'" class="card-img-top" [alt]="producto.nombre">
   <div class="card-body">
     <h5 class="card-title text-center fw-bold">{{producto.nombre}}</h5>
-    <div class="d-flex">
+    <!--<div class="d-flex">
       <img 
         *ngFor="let star of counter(producto.calificacion || 0)"
         class="star"
@@ -13,7 +13,7 @@
         class="star"
         src="assets/star.svg"
         alt="estrella sin relleno"/>
-    </div>
+    </div>-->
     <small class="card-text">
       {{producto.descripcion || '' | truncate:40}}
     </small>

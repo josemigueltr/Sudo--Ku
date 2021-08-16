@@ -6,6 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
       <a class="navbar-brand" routerLink="/" routerLinkActive="active" *ngIf="isComprador">eBarrotes</a>
+      <a class="navbar-brand" routerLink="/mas-vendidos" routerLinkActive="active" *ngIf="isComprador">Más vendidos</a>
       <form *ngIf="isComprador"
         class="d-flex flex-grow-1 mx-5" 
         novalidate 

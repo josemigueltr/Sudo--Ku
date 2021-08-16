@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 
 import { Producto } from 'src/app/shared/models';
 
+declare const bootstrap: any
+
 @Component({
   selector: 'app-mas-vendidos',
   templateUrl: './mas-vendidos.component.html',
@@ -13,6 +15,8 @@ export class MasVendidosComponent implements OnInit {
   // TODO: consultar productos más vendidos
 
   productos: Producto[] | undefined
+  idProductoSeleccionado: number | undefined
+  modalInformacionProducto: any
 
   constructor(
     private servicioProductos: ProductosService
@@ -31,6 +35,18 @@ export class MasVendidosComponent implements OnInit {
         })
       }
     )
+  }
+
+  ngAfterViewInit() {
+    // obtenemos modal de informacion de producto
+    this.modalInformacionProducto = bootstrap.Modal.getOrCreateInstance(
+      document.getElementById('modal-informacion-producto')
+    )
+  }
+
+  mostrarProducto(producto: Producto) {
+    this.idProductoSeleccionado = producto.id_producto;
+    this.modalInformacionProducto.show()
   }
 
 }

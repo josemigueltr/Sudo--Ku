@@ -6,7 +6,7 @@
   </thead>
   <tbody>
   <tr *ngIf="loading">
-    <td colspan="6" class="text-center">
+    <td colspan="5" class="text-center">
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </td>
   </tr>
@@ -14,7 +14,6 @@
     <th scope="row">{{el.id_producto}}</th>
     <td>{{el.nombre}}</td>
     <td> $ {{el.precio}} MXN</td>
-    <td>{{el.calificacion}}</td>
     <td>{{el.stock}}</td>
     <td>
 
@@ -36,7 +35,7 @@
     </td>
   </tr>
   <tr *ngIf="!loading && !productos.length">
-    <td colspan="6" class="text-center">
+    <td colspan="5" class="text-center">
       <h1>Sin productos</h1>
       <p>Aún no has agregado productos</p>
     </td>

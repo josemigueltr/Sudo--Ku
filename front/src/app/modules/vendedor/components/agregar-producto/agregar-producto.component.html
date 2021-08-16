@@ -21,7 +21,6 @@
                   'is-invalid': nombre.invalid && (nombre.dirty || nombre.touched),
                   'is-valid': !nombre.invalid && (nombre.dirty || nombre.touched)
                 }"/>
-              {{nombre.value}}
               <div class="invalid-feedback">
                 <p *ngIf="nombre.errors?.required">Debes ingresar un nombre</p>
                 <p *ngIf="nombre.errors?.maxlength">No debes pasar de los 200 caracteres</p>

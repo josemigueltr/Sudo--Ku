@@ -1,4 +1,5 @@
 -- DROP database ebarrotes;
+DROP DATABASE IF EXISTS `ebarrotes`;
 CREATE DATABASE  IF NOT EXISTS `ebarrotes`;
 
 USE `ebarrotes`;
