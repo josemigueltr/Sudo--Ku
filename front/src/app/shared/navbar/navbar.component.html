@@ -5,8 +5,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbar">
-      <a class="navbar-brand" routerLink="/" routerLinkActive="active">eBarrotes</a>
-      <form 
+      <a class="navbar-brand" routerLink="/" routerLinkActive="active" *ngIf="isComprador">eBarrotes</a>
+      <form *ngIf="isComprador"
         class="d-flex flex-grow-1 mx-5" 
         novalidate 
         (submit)="buscarProducto()">

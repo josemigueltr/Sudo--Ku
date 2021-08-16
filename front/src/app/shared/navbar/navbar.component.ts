@@ -11,6 +11,7 @@ export class NavbarComponent{
   // properties
   busqueda = ''
   isAuthenticated = false
+  isComprador = false
 
   constructor(
     private router: Router,
@@ -18,6 +19,9 @@ export class NavbarComponent{
   ) { 
     this.servicioAuth.isAuthenticated.subscribe(
       isAuthenticated => this.isAuthenticated = isAuthenticated
+    )
+    this.servicioAuth.isComprador.subscribe(
+      isComprador => this.isComprador = isComprador
     )
   }
 
@@ -28,6 +32,7 @@ export class NavbarComponent{
   cerrarSesion() {
     localStorage.clear()
     this.isAuthenticated = false
+    this.isComprador = false
     this.router.navigate(['/auth/login']);
 
   }
