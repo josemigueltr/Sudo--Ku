@@ -24,7 +24,7 @@
       </form>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a  class="nav-link active"  *ngIf="!isAuthenticated"  routerLink="/carrito" routerLinkActive="active">
+          <a  class="nav-link active" *ngIf="isAuthenticated && isComprador" routerLink="/carrito" routerLinkActive="active">
             Carrito 🛒
           </a>
         </li>
