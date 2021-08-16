@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
 
    ngOnInit() {
     const token = localStorage.getItem('token')
-    console.log(token !== null)
+    const es_comprador = JSON.parse(localStorage.getItem('es_comprador') || 'false')
     this.servicioAuth.isAuthenticated.next(token !== null)
+    this.servicioAuth.isComprador.next(es_comprador)
    }
 }

@@ -10,6 +10,7 @@ import { API_BASE } from '../constants';
 export class AuthService {
 
   isAuthenticated = new Subject<boolean>()
+  isComprador = new Subject<boolean>()
 
   constructor(
     private http: HttpClient
